@@ -126,7 +126,8 @@ void android_dt_print_contents(ulong hdr_addr)
 
 	/* Print image entries info */
 	for (i = 0; i < entry_count; ++i) {
-		const ulong e_addr = hdr_addr + entries_offset + i * entry_size;
+		const ulong e_addr = hdr_addr + entries_offset +
+				     (ulong)i * entry_size;
 		const struct dt_table_entry *e;
 		const struct fdt_header *fdt;
 		u32 dt_offset, dt_size;
