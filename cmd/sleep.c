@@ -31,7 +31,7 @@ static int do_sleep(struct cmd_tbl *cmdtp, int flag, int argc,
 				mdelay = 0;
 				break;
 			}
-			mdelay += (*frpart - '0') * mult;
+			mdelay += (ulong)(*frpart - '0') * mult;
 			mult /= 10;
 		}
 	}
