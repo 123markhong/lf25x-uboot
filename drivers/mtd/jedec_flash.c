@@ -467,7 +467,7 @@ static inline void fill_info(flash_info_t *info, const struct amd_flash_info *je
 		}
 	}
 	info->sector_count = sect_cnt;
-	info->size = total_size * size_ratio;
+	info->size = (ulong)total_size * size_ratio;
 }
 
 /*-----------------------------------------------------------------------
