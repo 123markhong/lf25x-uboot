@@ -293,7 +293,7 @@ static ulong pic32_get_mpll_rate(struct pic32_clk_priv *priv)
 	odiv1 = (v >> MPLL_ODIV1_SHIFT) & MPLL_ODIV1;
 	odiv2 = (v >> MPLL_ODIV2_SHIFT) & MPLL_ODIV2;
 
-	rate = (SYS_POSC_CLK_HZ / idiv) * mul;
+	rate = (u64)(SYS_POSC_CLK_HZ / idiv) * mul;
 	do_div(rate, odiv1);
 	do_div(rate, odiv2);
 
