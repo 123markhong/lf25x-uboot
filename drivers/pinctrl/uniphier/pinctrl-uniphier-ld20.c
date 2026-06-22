@@ -83,7 +83,12 @@ static const struct uniphier_pinctrl_group uniphier_ld20_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(i2c1),
 	UNIPHIER_PINCTRL_GROUP(i2c3),
 	UNIPHIER_PINCTRL_GROUP(i2c4),
-	UNIPHIER_PINCTRL_GROUP(nand),
+	{
+		.name = "nand",
+		.pins = nand_pins,
+		.num_pins = ARRAY_SIZE(nand_pins),
+		.muxvals = nand_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(sd),
 	{
 		.name = "spi0",
