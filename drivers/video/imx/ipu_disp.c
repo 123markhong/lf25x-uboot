@@ -877,7 +877,7 @@ int32_t ipu_init_sync_panel(int disp, uint32_t pixel_clk,
 				if (clk_get_rate(di_parent) != div *
 					rounded_pixel_clk)
 					clk_set_rate(di_parent,
-						div * rounded_pixel_clk);
+						(unsigned long)div * rounded_pixel_clk);
 				udelay(10000);
 				clk_set_rate(g_di_clk[disp],
 					2 * rounded_pixel_clk);
