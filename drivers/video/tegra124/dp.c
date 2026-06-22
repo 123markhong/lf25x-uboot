@@ -514,7 +514,7 @@ static int tegra_dc_dp_calc_config(struct tegra_dp_priv *dp,
 		(u64)link_rate * 8 * link_cfg->lane_count)
 		return -1;
 
-	num_linkclk_line = (u32)(lldiv(link_rate * timing->hactive.typ,
+	num_linkclk_line = (u32)(lldiv((u64)link_rate * timing->hactive.typ,
 				       timing->pixelclock.typ));
 
 	ratio_f = (u64)timing->pixelclock.typ * link_cfg->bits_per_pixel * f;
