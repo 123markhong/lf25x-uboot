@@ -972,7 +972,7 @@ int ext4fs_write(const char *fname, const char *buffer,
 	itable_blkno = ext4fs_bg_get_inode_table_id(bgd, fs) +
 			(inodeno % le32_to_cpu(sblock->inodes_per_group)) /
 			inodes_per_block;
-	blkoff = (inodeno % inodes_per_block) * fs->inodesz;
+	blkoff = (unsigned long)(inodeno % inodes_per_block) * fs->inodesz;
 	ext4fs_devread((lbaint_t)itable_blkno * fs->sect_perblk, 0, fs->blksz,
 		       temp_ptr);
 	if (ext4fs_log_journal(temp_ptr, itable_blkno))
