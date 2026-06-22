@@ -111,7 +111,7 @@ static int do_command(struct mmc *dev, struct mmc_cmd *cmd)
 static int read_bytes(struct mmc *dev, u32 *dest, u32 blkcount, u32 blksize)
 {
 	u32 *tempbuff = dest;
-	u64 xfercount = blkcount * blksize;
+	u64 xfercount = (u64)blkcount * blksize;
 	struct pl180_mmc_host *host = dev->priv;
 	u32 status, status_err;
 
