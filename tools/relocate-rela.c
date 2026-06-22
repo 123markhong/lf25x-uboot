@@ -205,9 +205,9 @@ static int decode_elf64(FILE *felf, char **argv)
 
 		if (!strcmp(".rela.dyn", sh_name)) {
 			debug("Found section\t\".rela_dyn\"\n");
-			debug(" at addr\t0x%08x\n", sh_addr);
-			debug(" at offset\t0x%08x\n", sh_offset);
-			debug(" of size\t0x%08x\n", sh_size);
+			debug(" at addr\t0x%08" PRIx64 "\n", (uint64_t)sh_addr);
+			debug(" at offset\t0x%08" PRIx64 "\n", (uint64_t)sh_offset);
+			debug(" of size\t0x%08" PRIx64 "\n", (uint64_t)sh_size);
 			rela_start = sh_addr;
 			rela_end = rela_start + sh_size;
 			break;
