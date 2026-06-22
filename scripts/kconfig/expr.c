@@ -808,44 +808,23 @@ struct expr *expr_transform(struct expr *e)
 		case E_SYMBOL:
 			if (e->left.expr->left.sym == &symbol_yes) {
 				// !'y' -> 'n'
-				tmp = e->left.expr;
-				if (tmp == e) {
-					e->type = E_SYMBOL;
-					e->left.sym = &symbol_no;
-					break;
-				}
-				free(e);
-				e = tmp;
 				e->type = E_SYMBOL;
 				e->left.sym = &symbol_no;
+				e->right.sym = NULL;
 				break;
 			}
 			if (e->left.expr->left.sym == &symbol_mod) {
 				// !'m' -> 'm'
-				tmp = e->left.expr;
-				if (tmp == e) {
-					e->type = E_SYMBOL;
-					e->left.sym = &symbol_mod;
-					break;
-				}
-				free(e);
-				e = tmp;
 				e->type = E_SYMBOL;
 				e->left.sym = &symbol_mod;
+				e->right.sym = NULL;
 				break;
 			}
 			if (e->left.expr->left.sym == &symbol_no) {
 				// !'n' -> 'y'
-				tmp = e->left.expr;
-				if (tmp == e) {
-					e->type = E_SYMBOL;
-					e->left.sym = &symbol_yes;
-					break;
-				}
-				free(e);
-				e = tmp;
 				e->type = E_SYMBOL;
 				e->left.sym = &symbol_yes;
+				e->right.sym = NULL;
 				break;
 			}
 			break;
