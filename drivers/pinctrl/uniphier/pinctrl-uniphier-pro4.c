@@ -104,7 +104,12 @@ static const struct uniphier_pinctrl_group uniphier_pro4_groups[] = {
 		.muxvals = ether_rmiib_muxvals,
 	},
 	UNIPHIER_PINCTRL_GROUP(i2c0),
-	UNIPHIER_PINCTRL_GROUP(i2c1),
+	{
+		.name = "i2c1",
+		.pins = i2c1_pins,
+		.num_pins = ARRAY_SIZE(i2c1_pins),
+		.muxvals = i2c1_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(i2c2),
 	{
 		.name = "i2c3",
