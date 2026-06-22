@@ -89,7 +89,12 @@ static const int usb2_muxvals[] = {0, 0};
 	UNIPHIER_PINCTRL_GROUP(i2c3),
 	UNIPHIER_PINCTRL_GROUP(i2c5),
 	UNIPHIER_PINCTRL_GROUP(i2c5b),
-	UNIPHIER_PINCTRL_GROUP(i2c5c),
+	{
+		.name = "i2c5c",
+		.pins = i2c5c_pins,
+		.num_pins = ARRAY_SIZE(i2c5c_pins),
+		.muxvals = i2c5c_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(i2c6),
 	{
 		.name = "nand",
