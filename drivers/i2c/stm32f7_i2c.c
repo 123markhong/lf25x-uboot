@@ -523,7 +523,7 @@ static int stm32_i2c_compute_solutions(u32 i2cclk,
 	struct stm32_i2c_timings *v;
 	u32 p_prev = STM32_PRESC_MAX;
 	u32 af_delay_min, af_delay_max;
-	u16 p, l, a;
+	u32 p, l, a;
 	int sdadel_min, sdadel_max, scldel_min;
 	int ret = 0;
 
