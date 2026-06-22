@@ -1996,14 +1996,16 @@ kwboot_img_guess_sata_blksz(void *img, uint32_t blkoff, uint32_t data_size, size
 {
 	uint32_t sum, *ptr, *end;
 	int blksz;
+	size_t offset;
 
 	/*
 	 * Try all possible sector sizes which are power of two,
 	 * at least 512 bytes and up to the 32 kB.
 	 */
 	for (blksz = 512; blksz < 0x10000; blksz *= 2) {
-		if (blkoff * blksz > total_size ||
-		    blkoff * blksz + data_size > total_size ||
+		offset = (size_t)blkoff * (size_t)blksz;
+		if (offset > total_size ||
+		    offset + data_size > total_size ||
 		    data_size % 4)
 			break;
 
@@ -2011,7 +2013,7 @@ kwboot_img_guess_sata_blksz(void *img, uint32_t blkoff, uint32_t data_size, size
 		 * Calculate data checksum and if it matches
 		 * then tried blksz should be correct.
 		 */
-		ptr = img + blkoff * blksz;
+		ptr = (uint32_t *)((uint8_t *)img + offset);
 		end = (void *)ptr + data_size - 4;
 		for (sum = 0; ptr < end; ptr++)
 			sum += *ptr;
