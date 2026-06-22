@@ -88,7 +88,12 @@ static const struct uniphier_pinctrl_group uniphier_pxs2_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(i2c2),
 	UNIPHIER_PINCTRL_GROUP(i2c3),
 	UNIPHIER_PINCTRL_GROUP(i2c5),
-	UNIPHIER_PINCTRL_GROUP(i2c6),
+	{
+		.name = "i2c6",
+		.pins = i2c6_pins,
+		.num_pins = ARRAY_SIZE(i2c6_pins),
+		.muxvals = i2c6_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(nand),
 	{
 		.name = "nand_cs1",
