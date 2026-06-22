@@ -519,7 +519,7 @@ static inline void imx_udelay(u32 usec)
 	asm volatile("mrrc p15, 0, %Q0, %R0, c14" : "=r" (start));
 	do {
 		asm volatile("mrrc p15, 0, %Q0, %R0, c14" : "=r" (end));
-		if ((end - start) > usec * (freq / 1000000))
+		if ((end - start) > (u64)usec * (freq / 1000000))
 			break;
 	} while (1);
 }
