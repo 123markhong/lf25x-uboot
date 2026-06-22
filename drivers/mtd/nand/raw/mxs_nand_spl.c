@@ -307,7 +307,7 @@ u32 nand_spl_adjust_offset(u32 sector, u32 offs)
 	lastblock = (sector + offs) / mtd->erasesize;
 
 	while (block <= lastblock) {
-		if (is_badblock(mtd, block * mtd->erasesize, 1)) {
+		if (is_badblock(mtd, (loff_t)block * mtd->erasesize, 1)) {
 			offs += mtd->erasesize;
 			lastblock++;
 		}
