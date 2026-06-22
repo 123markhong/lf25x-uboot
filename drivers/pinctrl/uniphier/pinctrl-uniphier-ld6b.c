@@ -120,7 +120,12 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(uart0b),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart1),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart1b),
-	UNIPHIER_PINCTRL_GROUP_SPL(uart2),
+	{
+		.name = "uart2",
+		.pins = uart2_pins,
+		.num_pins = ARRAY_SIZE(uart2_pins),
+		.muxvals = uart2_muxvals,
+	},
 	{
 		.name = "uart2b",
 		.pins = uart2b_pins,
