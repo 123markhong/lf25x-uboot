@@ -69,7 +69,7 @@ static inline void ext4fs_bg_free_blocks_inc
 
 static void ext4fs_update(void)
 {
-	short i;
+	uint32_t i;
 	ext4fs_update_journal();
 	struct ext_filesystem *fs = get_fs();
 	struct ext2_block_group *bgd = NULL;
