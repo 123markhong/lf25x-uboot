@@ -292,7 +292,7 @@ static int decode_elf32(FILE *felf, char **argv)
 
 	sh_index = elf16_to_cpu(header.e_shstrndx);
 	sh_size = elf32_to_cpu(sh_table[sh_index].sh_size);
-	debug("e_shstrndx %x, sh_size %lx\n", sh_index, sh_size);
+	debug("e_shstrndx %x, sh_size %x\n", sh_index, sh_size);
 
 	sh_str = malloc(sh_size);
 	if (!sh_str) {
