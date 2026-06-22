@@ -89,7 +89,12 @@ static const struct uniphier_pinctrl_group uniphier_pro5_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(i2c3),
 	UNIPHIER_PINCTRL_GROUP(i2c5),
 	UNIPHIER_PINCTRL_GROUP(i2c5b),
-	UNIPHIER_PINCTRL_GROUP(i2c5c),
+	{
+		.name = "i2c5c",
+		.pins = i2c5c_pins,
+		.num_pins = ARRAY_SIZE(i2c5c_pins),
+		.muxvals = i2c5c_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(i2c6),
 	UNIPHIER_PINCTRL_GROUP(nand),
 	UNIPHIER_PINCTRL_GROUP(nand_cs1),
