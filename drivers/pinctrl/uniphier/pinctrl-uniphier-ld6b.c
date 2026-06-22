@@ -95,7 +95,12 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(i2c1),
 	UNIPHIER_PINCTRL_GROUP(i2c2),
 	UNIPHIER_PINCTRL_GROUP(i2c3),
-	UNIPHIER_PINCTRL_GROUP(nand),
+	{
+		.name = "nand",
+		.pins = nand_pins,
+		.num_pins = ARRAY_SIZE(nand_pins),
+		.muxvals = nand_muxvals,
+	},
 	{
 		.name = "nand_cs1",
 		.pins = nand_cs1_pins,
