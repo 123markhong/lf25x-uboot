@@ -22,6 +22,8 @@
 
 #include <dirent.h>
 #include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 static struct node *read_fstree(const char *dirname)
 {
@@ -51,18 +53,33 @@ static struct node *read_fstree(const char *dirname)
 		if (S_ISREG(st.st_mode)) {
 			struct property *prop;
 			FILE *pfile;
+			int fd;
+			struct stat fst;
 
-			pfile = fopen(tmpname, "rb");
-			if (! pfile) {
+			fd = open(tmpname, O_RDONLY | O_NOFOLLOW);
+			if (fd < 0) {
 				fprintf(stderr,
 					"WARNING: Cannot open %s: %s\n",
 					tmpname, strerror(errno));
+			} else if (fstat(fd, &fst) < 0 || !S_ISREG(fst.st_mode)) {
+				fprintf(stderr,
+					"WARNING: Cannot stat %s: %s\n",
+					tmpname, strerror(errno));
+				close(fd);
 			} else {
-				prop = build_property(xstrdup(de->d_name),
-						      data_copy_file(pfile,
-								     st.st_size));
-				add_property(tree, prop);
-				fclose(pfile);
+				pfile = fdopen(fd, "rb");
+				if (!pfile) {
+					fprintf(stderr,
+						"WARNING: Cannot open stream %s: %s\n",
+						tmpname, strerror(errno));
+					close(fd);
+				} else {
+					prop = build_property(xstrdup(de->d_name),
+							      data_copy_file(pfile,
+									     fst.st_size));
+					add_property(tree, prop);
+					fclose(pfile);
+				}
 			}
 		} else if (S_ISDIR(st.st_mode)) {
 			struct node *newchild;
