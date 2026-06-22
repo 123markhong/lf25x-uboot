@@ -130,7 +130,7 @@ void ext4fs_free_journal(void)
 int ext4fs_log_gdt(char *gd_table)
 {
 	struct ext_filesystem *fs = get_fs();
-	short i;
+	uint32_t i;
 	long int var = fs->gdtable_blkno;
 	for (i = 0; i < fs->no_blk_pergdt; i++) {
 		journal_ptr[gindex]->buf = zalloc(fs->blksz);
