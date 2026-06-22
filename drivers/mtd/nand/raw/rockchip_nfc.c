@@ -584,7 +584,7 @@ static int rk_nfc_write_page_hwecc(struct mtd_info *mtd,
 	dma_data = dma_map_single((void *)nfc->page_buf,
 				  mtd->writesize, DMA_TO_DEVICE);
 	dma_oob = dma_map_single(nfc->oob_buf,
-				 ecc->steps * oob_step,
+				 (size_t)ecc->steps * oob_step,
 				 DMA_TO_DEVICE);
 
 	rk_nfc_xfer_start(nfc, NFC_WRITE, ecc->steps, dma_data,
@@ -593,7 +593,7 @@ static int rk_nfc_write_page_hwecc(struct mtd_info *mtd,
 
 	dma_unmap_single(dma_data, mtd->writesize,
 			 DMA_TO_DEVICE);
-	dma_unmap_single(dma_oob, ecc->steps * oob_step,
+	dma_unmap_single(dma_oob, (size_t)ecc->steps * oob_step,
 			 DMA_TO_DEVICE);
 
 	if (boot_rom_mode && rknand->boot_ecc != ecc->strength)
