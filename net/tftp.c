@@ -155,7 +155,7 @@ static unsigned short tftp_window_size_option = TFTP_WINDOWSIZE;
 
 static inline int store_block(int block, uchar *src, unsigned int len)
 {
-	ulong offset = block * tftp_block_size + tftp_block_wrap_offset -
+	ulong offset = (ulong)block * tftp_block_size + tftp_block_wrap_offset -
 			tftp_block_size;
 	ulong newsize = offset + len;
 	ulong store_addr = tftp_load_addr + offset;
