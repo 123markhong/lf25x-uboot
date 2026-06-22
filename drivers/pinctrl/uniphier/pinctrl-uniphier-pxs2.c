@@ -90,7 +90,12 @@ static const struct uniphier_pinctrl_group uniphier_pxs2_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(i2c5),
 	UNIPHIER_PINCTRL_GROUP(i2c6),
 	UNIPHIER_PINCTRL_GROUP(nand),
-	UNIPHIER_PINCTRL_GROUP(nand_cs1),
+	{
+		.name = "nand_cs1",
+		.pins = nand_cs1_pins,
+		.muxvals = nand_cs1_muxvals,
+		.num_pins = ARRAY_SIZE(nand_cs1_pins),
+	},
 	UNIPHIER_PINCTRL_GROUP(sd),
 	{
 		.name = "spi0",
