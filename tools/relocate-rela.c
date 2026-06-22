@@ -261,7 +261,7 @@ static int decode_elf32(FILE *felf, char **argv)
 
 	text_base = elf32_to_cpu(header.e_entry);
 	section_header_base = elf32_to_cpu(header.e_shoff);
-	section_header_size = elf16_to_cpu(header.e_shentsize) *
+	section_header_size = (uint64_t)elf16_to_cpu(header.e_shentsize) *
 			      elf16_to_cpu(header.e_shnum);
 
 	sh_table = malloc(section_header_size);
