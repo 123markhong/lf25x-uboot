@@ -1148,7 +1148,7 @@ again:
 	for (i = 0; i < multi->num_stripes; i++) {
 		multi->stripes[i].physical =
 			map->stripes[stripe_index].physical + stripe_offset +
-			stripe_nr * map->stripe_len;
+			(u64)stripe_nr * map->stripe_len;
 		multi->stripes[i].dev = map->stripes[stripe_index].dev;
 		stripe_index++;
 	}
