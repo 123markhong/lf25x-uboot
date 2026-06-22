@@ -174,7 +174,7 @@ static int spi_setup_opcode(struct ich_spi_priv *ctlr, struct spi_trans *trans,
 	} else {
 		/* The lock is on. See if what we need is on the menu. */
 		uint8_t optype;
-		uint16_t opcode_index;
+		int opcode_index;
 
 		/* Write Enable is handled as atomic prefix */
 		if (trans->opcode == SPI_OPCODE_WREN)
