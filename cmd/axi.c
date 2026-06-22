@@ -233,8 +233,8 @@ static int do_axi_md(struct cmd_tbl *cmdtp, int flag, int argc,
 				  DISP_LINE_LEN : nbytes;
 
 		for (k = 0; k < linebytes / unitsize; ++k) {
-			int ret = axi_read(axi_cur_bus, addr + k * unitsize,
-					   linebuf + k * unitsize, axisize);
+			int ret = axi_read(axi_cur_bus, addr + (ulong)k * unitsize,
+					   linebuf + (ulong)k * unitsize, axisize);
 
 			if (!ret) /* Continue if axi_read was successful */
 				continue;
