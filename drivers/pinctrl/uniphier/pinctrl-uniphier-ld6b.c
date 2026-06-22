@@ -97,7 +97,7 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs4),
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs5),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart0),
-	UNIPHIER_PINCTRL_GROUP_SPL(uart0b),
+	UNIPHIER_PINCTRL_GROUP(uart0b),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart1),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart1b),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart2),
