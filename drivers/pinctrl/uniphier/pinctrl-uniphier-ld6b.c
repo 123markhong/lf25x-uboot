@@ -97,7 +97,12 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 		.num_pins = ARRAY_SIZE(i2c0_pins),
 		.muxvals = i2c0_muxvals,
 	},
-	UNIPHIER_PINCTRL_GROUP(i2c1),
+	{
+		.name = "i2c1",
+		.pins = i2c1_pins,
+		.num_pins = ARRAY_SIZE(i2c1_pins),
+		.muxvals = i2c1_muxvals,
+	},
 	{
 		.name = "i2c2",
 		.pins = i2c2_pins,
