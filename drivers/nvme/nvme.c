@@ -104,7 +104,7 @@ static int nvme_setup_prps(struct nvme_dev *dev, u64 *prp2,
 	*prp2 = (ulong)dev->prp_pool;
 
 	flush_dcache_range((ulong)dev->prp_pool, (ulong)dev->prp_pool +
-			   num_pages * page_size);
+			   (ulong)num_pages * page_size);
 
 	return 0;
 }
