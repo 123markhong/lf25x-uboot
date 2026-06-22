@@ -85,7 +85,7 @@ static void mtd_dump_device_buf(struct mtd_info *mtd, u64 start_off,
 				     mtd->writesize, start_off + data_off);
 
 			if (woob) {
-				u64 oob_off = page * mtd->oobsize;
+				u64 oob_off = (u64)page * mtd->oobsize;
 
 				printf("Dump %d OOB bytes from page at 0x%08llx:\n",
 				       mtd->oobsize, start_off + data_off);
