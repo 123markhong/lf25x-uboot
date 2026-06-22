@@ -99,7 +99,7 @@ int elm_check_error(u8 *syndrome, enum bch_level bch_type, u32 *error_count,
 		u32 *error_locations)
 {
 	u8 poly = ELM_DEFAULT_POLY;
-	s8 i;
+	u32 i;
 	u32 location_status;
 
 	elm_load_syndromes(syndrome, bch_type, poly);
