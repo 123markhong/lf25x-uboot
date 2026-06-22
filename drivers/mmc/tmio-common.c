@@ -316,7 +316,7 @@ static int tmio_sd_dma_wait_for_irq(struct udevice *dev, u32 flag,
 static int tmio_sd_dma_xfer(struct udevice *dev, struct mmc_data *data)
 {
 	struct tmio_sd_priv *priv = dev_get_priv(dev);
-	size_t len = data->blocks * data->blocksize;
+	size_t len = (size_t)data->blocks * data->blocksize;
 	void *buf;
 	enum dma_data_direction dir;
 	dma_addr_t dma_addr;
