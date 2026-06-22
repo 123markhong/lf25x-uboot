@@ -291,7 +291,7 @@ int last_stage_init(void)
 void fdt_fixup_fman_mac_addresses(void *blob)
 {
 	int node, ret;
-	char path[24];
+	const char *path;
 	unsigned char mac_addr[6];
 
 	/*
@@ -304,7 +304,7 @@ void fdt_fixup_fman_mac_addresses(void *blob)
 	}
 
 	/* local management port */
-	strcpy(path, "/soc/fman/ethernet@e8000");
+	path = "/soc/fman/ethernet@e8000";
 	node = fdt_path_offset(blob, path);
 	if (node < 0) {
 		printf("no %s\n", path);
