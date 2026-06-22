@@ -91,7 +91,7 @@ void board_init_r(gd_t *gd, ulong dest_addr)
 {
 	struct bd_info *bd;
 
-	bd = (struct bd_info *)(gd + sizeof(gd_t));
+	bd = (struct bd_info *)((char *)gd + sizeof(gd_t));
 	memset(bd, 0, sizeof(struct bd_info));
 	gd->bd = bd;
 
