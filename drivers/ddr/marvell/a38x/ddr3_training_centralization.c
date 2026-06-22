@@ -58,7 +58,7 @@ static int ddr3_tip_centralization(u32 dev_num, u32 mode)
 {
 	enum hws_training_ip_stat training_result[MAX_INTERFACE_NUM];
 	u32 if_id, pattern_id, bit_id;
-	u8 bus_id;
+	u32 bus_id;
 	u8 current_byte_status;
 	u8 cur_start_win[BUS_WIDTH_IN_BITS];
 	u8 centralization_result[MAX_INTERFACE_NUM][BUS_WIDTH_IN_BITS];
