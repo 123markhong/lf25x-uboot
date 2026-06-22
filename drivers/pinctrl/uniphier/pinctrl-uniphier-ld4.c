@@ -90,7 +90,7 @@ static const struct uniphier_pinctrl_group uniphier_ld4_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs3),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart0),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart1),
-	UNIPHIER_PINCTRL_GROUP_SPL(uart1b),
+	UNIPHIER_PINCTRL_GROUP(uart1b),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart2),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart3),
 	UNIPHIER_PINCTRL_GROUP(usb0),
