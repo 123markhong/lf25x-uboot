@@ -1088,7 +1088,7 @@ again:
 			int rot;
 			u64 tmp;
 			u64 raid56_full_stripe_start;
-			u64 full_stripe_len = nr_data_stripes(map) * map->stripe_len;
+			u64 full_stripe_len = (u64)nr_data_stripes(map) * map->stripe_len;
 
 			/*
 			 * align the start of our data stripe in the logical
