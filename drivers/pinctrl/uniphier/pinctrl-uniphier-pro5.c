@@ -80,7 +80,7 @@ static const int usb1_muxvals[] = {0, 0};
 static const unsigned usb2_pins[] = {128, 129};
 static const int usb2_muxvals[] = {0, 0};
 
-static const struct uniphier_pinctrl_group uniphier_pro5_groups[] = {
+	static const struct uniphier_pinctrl_group uniphier_pro5_groups[] = {
 	UNIPHIER_PINCTRL_GROUP_SPL(emmc),
 	UNIPHIER_PINCTRL_GROUP_SPL(emmc_dat8),
 	UNIPHIER_PINCTRL_GROUP(i2c0),
@@ -96,7 +96,13 @@ static const struct uniphier_pinctrl_group uniphier_pro5_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(sd),
 	UNIPHIER_PINCTRL_GROUP(spi0),
 	UNIPHIER_PINCTRL_GROUP(spi1),
-	UNIPHIER_PINCTRL_GROUP(spi2),
+	{
+		.name = "spi2",
+		.pins = spi2_pins,
+		.num_pins = ARRAY_SIZE(spi2_pins),
+		.muxvals = spi2_muxvals,
+		.num_muxvals = ARRAY_SIZE(spi2_muxvals),
+	},
 	UNIPHIER_PINCTRL_GROUP(system_bus),
 	{
 		.name = "system_bus_cs0",
