@@ -29,7 +29,6 @@ static struct node *read_fstree(const char *dirname)
 {
 	DIR *d;
 	struct dirent *de;
-	struct stat st;
 	struct node *tree;
 
 	d = opendir(dirname);
@@ -40,6 +39,9 @@ static struct node *read_fstree(const char *dirname)
 
 	while ((de = readdir(d)) != NULL) {
 		char *tmpname;
+		int fd;
+		int open_errno;
+		struct stat fst;
 
 		if (streq(de->d_name, ".")
 		    || streq(de->d_name, ".."))
@@ -47,26 +49,17 @@ static struct node *read_fstree(const char *dirname)
 
 		tmpname = join_path(dirname, de->d_name);
 
-		if (lstat(tmpname, &st) < 0)
-			die("stat(%s): %s\n", tmpname, strerror(errno));
-
-		if (S_ISREG(st.st_mode)) {
-			struct property *prop;
-			FILE *pfile;
-			int fd;
-			struct stat fst;
-
-			fd = open(tmpname, O_RDONLY | O_NOFOLLOW);
-			if (fd < 0) {
-				fprintf(stderr,
-					"WARNING: Cannot open %s: %s\n",
-					tmpname, strerror(errno));
-			} else if (fstat(fd, &fst) < 0 || !S_ISREG(fst.st_mode)) {
+		fd = open(tmpname, O_RDONLY | O_NOFOLLOW);
+		if (fd >= 0) {
+			if (fstat(fd, &fst) < 0 || !S_ISREG(fst.st_mode)) {
 				fprintf(stderr,
 					"WARNING: Cannot stat %s: %s\n",
 					tmpname, strerror(errno));
 				close(fd);
 			} else {
+				struct property *prop;
+				FILE *pfile;
+
 				pfile = fdopen(fd, "rb");
 				if (!pfile) {
 					fprintf(stderr,
@@ -81,12 +74,19 @@ static struct node *read_fstree(const char *dirname)
 					fclose(pfile);
 				}
 			}
-		} else if (S_ISDIR(st.st_mode)) {
-			struct node *newchild;
+		} else {
+			open_errno = errno;
+			if (open_errno == EISDIR) {
+				struct node *newchild;
 
-			newchild = read_fstree(tmpname);
-			newchild = name_node(newchild, xstrdup(de->d_name));
-			add_child(tree, newchild);
+				newchild = read_fstree(tmpname);
+				newchild = name_node(newchild, xstrdup(de->d_name));
+				add_child(tree, newchild);
+			} else {
+				fprintf(stderr,
+					"WARNING: Cannot open %s: %s\n",
+					tmpname, strerror(open_errno));
+			}
 		}
 
 		free(tmpname);
