@@ -126,7 +126,12 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 		.num_pins = ARRAY_SIZE(system_bus_pins),
 		.muxvals = system_bus_muxvals,
 	},
-	UNIPHIER_PINCTRL_GROUP(system_bus_cs1),
+	{
+		.name = "system_bus_cs1",
+		.pins = system_bus_cs1_pins,
+		.num_pins = ARRAY_SIZE(system_bus_cs1_pins),
+		.muxvals = system_bus_cs1_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs2),
 	UNIPHIER_PINCTRL_GROUP_SPL(system_bus_cs3),
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs4),
