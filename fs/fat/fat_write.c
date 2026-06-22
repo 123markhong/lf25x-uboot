@@ -740,7 +740,7 @@ get_set_cluster(fsdata *mydata, __u32 clustnum, loff_t pos, __u8 *buffer,
 		clustcount = lldiv(size, bytesperclust);
 
 		if (!((unsigned long)buffer & (ARCH_DMA_MINALIGN - 1))) {
-			wsize = clustcount * bytesperclust;
+			wsize = (loff_t)clustcount * bytesperclust;
 			ret = disk_write(startsect,
 					 clustcount * mydata->clust_size,
 					 buffer);
