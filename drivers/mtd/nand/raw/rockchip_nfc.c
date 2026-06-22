@@ -686,6 +686,7 @@ static int rk_nfc_read_page_hwecc(struct mtd_info *mtd,
 	int max_bitflips = 0, bch_st, ecc_fail = 0;
 	u8 *oob;
 	u32 tmp;
+	size_t oob_len = (size_t)ecc->steps * oob_step;
 
 	nand_read_page_op(chip, page, 0, NULL, 0);
 
@@ -693,7 +694,7 @@ static int rk_nfc_read_page_hwecc(struct mtd_info *mtd,
 				  mtd->writesize,
 				  DMA_FROM_DEVICE);
 	dma_oob = dma_map_single(nfc->oob_buf,
-				 ecc->steps * oob_step,
+				 oob_len,
 				 DMA_FROM_DEVICE);
 
 	/*
@@ -714,7 +715,7 @@ static int rk_nfc_read_page_hwecc(struct mtd_info *mtd,
 
 	dma_unmap_single(dma_data, mtd->writesize,
 			 DMA_FROM_DEVICE);
-	dma_unmap_single(dma_oob, ecc->steps * oob_step,
+	dma_unmap_single(dma_oob, oob_len,
 			 DMA_FROM_DEVICE);
 
 	if (ret) {
