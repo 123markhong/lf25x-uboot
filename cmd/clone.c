@@ -86,11 +86,11 @@ read:
 			printf("Src read error @blk %ld\n", srcblk);
 			goto exit;
 		}
-		rdcnt += ret * srcbz;
+		rdcnt += (unsigned long)ret * srcbz;
 		srcblk += ret;
 		if (ret < toread) {
 			toread -= ret;
-			offset += ret * srcbz;
+			offset += (unsigned long)ret * srcbz;
 			goto read;
 		}
 		offset = 0;
@@ -100,11 +100,11 @@ write:
 			printf("Dest write error @blk %ld\n", srcblk);
 			goto exit;
 		}
-		wrcnt += ret * destbz;
+		wrcnt += (unsigned long)ret * destbz;
 		destblk += ret;
 		if (ret < towrite) {
 			towrite -= ret;
-			offset += ret * destbz;
+			offset += (unsigned long)ret * destbz;
 			goto write;
 		}
 	}
