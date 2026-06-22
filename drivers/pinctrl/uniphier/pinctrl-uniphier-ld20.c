@@ -88,7 +88,12 @@ static const struct uniphier_pinctrl_group uniphier_ld20_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(spi0),
 	UNIPHIER_PINCTRL_GROUP(spi1),
 	UNIPHIER_PINCTRL_GROUP(spi2),
-	UNIPHIER_PINCTRL_GROUP(spi3),
+	{
+		.name = "spi3",
+		.pins = spi3_pins,
+		.muxvals = spi3_muxvals,
+		.num_pins = ARRAY_SIZE(spi3_pins),
+	},
 	UNIPHIER_PINCTRL_GROUP(system_bus),
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs1),
 	UNIPHIER_PINCTRL_GROUP(uart0),
