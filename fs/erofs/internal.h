@@ -357,7 +357,7 @@ static inline int erofs_get_occupied_size(const struct erofs_inode *inode,
 		break;
 	case EROFS_INODE_COMPRESSED_FULL:
 	case EROFS_INODE_COMPRESSED_COMPACT:
-		*size = inode->u.i_blocks * erofs_blksiz();
+		*size = (erofs_off_t)inode->u.i_blocks * erofs_blksiz();
 		break;
 	default:
 		return -EOPNOTSUPP;
