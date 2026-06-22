@@ -239,7 +239,12 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 		.num_pins = ARRAY_SIZE(usb1_pins),
 		.muxvals = usb1_muxvals,
 	},
-	UNIPHIER_PINCTRL_GROUP(usb2),
+	{
+		.name = "usb2",
+		.pins = usb2_pins,
+		.num_pins = ARRAY_SIZE(usb2_pins),
+		.muxvals = usb2_muxvals,
+	},
 	{
 		.name = "usb3",
 		.pins = usb3_pins,
