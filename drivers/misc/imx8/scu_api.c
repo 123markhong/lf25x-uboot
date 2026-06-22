@@ -1232,7 +1232,7 @@ int sc_seco_secvio_dgo_config(sc_ipc_t ipc, u8 id, u8 access, u32 *data)
 	RPC_SVC(&msg) = (u8)(SC_RPC_SVC_SECO);
 	RPC_FUNC(&msg) = (u8)(SECO_FUNC_SECVIO_DGO_CONFIG);
 
-	RPC_U32(&msg, 0U) = (u32)(*data);
+	RPC_U32(&msg, 0U) = data ? (u32)(*data) : 0U;
 	RPC_U8(&msg, 4U) = (u8)(id);
 	RPC_U8(&msg, 5U) = (u8)(access);
 
