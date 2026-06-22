@@ -604,7 +604,7 @@ static void init_hw_ep(struct mtu3 *mtu, struct mtu3_ep *mep,
 
 static void mtu3_gadget_init_eps(struct mtu3 *mtu)
 {
-	u8 epnum;
+	int epnum;
 
 	/* initialize endpoint list just once */
 	INIT_LIST_HEAD(&mtu->g.ep_list);
@@ -614,8 +614,8 @@ static void mtu3_gadget_init_eps(struct mtu3 *mtu)
 
 	init_hw_ep(mtu, mtu->ep0, 0, 0);
 	for (epnum = 1; epnum < mtu->num_eps; epnum++) {
-		init_hw_ep(mtu, mtu->in_eps + epnum, epnum, 1);
-		init_hw_ep(mtu, mtu->out_eps + epnum, epnum, 0);
+		init_hw_ep(mtu, mtu->in_eps + epnum, (u32)epnum, 1);
+		init_hw_ep(mtu, mtu->out_eps + epnum, (u32)epnum, 0);
 	}
 }
 
