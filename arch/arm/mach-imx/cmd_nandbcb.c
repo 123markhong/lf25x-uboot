@@ -269,8 +269,8 @@ static int nandbcb_set_boot_config(int argc, char * const argv[],
 	}
 	maxsize = boot_cfg->maxsize;
 	/* align to page boundary */
-	maxsize = ((u32)(maxsize + mtd->writesize - 1)) / (u32)mtd->writesize
-			* mtd->writesize;
+	maxsize = ((maxsize + mtd->writesize - 1) / mtd->writesize) *
+			mtd->writesize;
 
 	boot_stream1_address = 2 * boot_cfg->search_area_size_in_bytes;
 	boot_stream2_address = ((maxsize - boot_stream1_address) / 2 +
