@@ -776,13 +776,17 @@ struct expr *expr_transform(struct expr *e)
 			e->type = e->type == E_LEQ ? E_GTH : E_LTH;
 			break;
 		case E_LTH:
-		case E_GTH:
+		case E_GTH: {
+			enum expr_type new_type;
+
 			// !a<'x' -> a>='x'
+			new_type = e->left.expr->type == E_LTH ? E_GEQ : E_LEQ;
 			tmp = e->left.expr;
 			free(e);
 			e = tmp;
-			e->type = e->type == E_LTH ? E_GEQ : E_LEQ;
+			e->type = new_type;
 			break;
+		}
 		case E_OR:
 			// !(a || b) -> !a && !b
 			tmp = e->left.expr;
