@@ -84,7 +84,12 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 		.num_pins = ARRAY_SIZE(emmc_dat8_pins),
 		.muxvals = emmc_dat8_muxvals,
 	},
-	UNIPHIER_PINCTRL_GROUP(ether_rgmii),
+	{
+		.name = "ether_rgmii",
+		.pins = ether_rgmii_pins,
+		.num_pins = ARRAY_SIZE(ether_rgmii_pins),
+		.muxvals = ether_rgmii_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(ether_rmii),
 	{
 		.name = "i2c0",
