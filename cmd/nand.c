@@ -487,7 +487,7 @@ static void adjust_size_for_badblocks(loff_t *size, loff_t offset, int dev)
 	}
 	/* adjust size if any bad blocks found */
 	if (badblocks) {
-		*size -= badblocks * mtd->erasesize;
+		*size -= (loff_t)badblocks * mtd->erasesize;
 		printf("size adjusted to 0x%llx (%d bad blocks)\n",
 		       (unsigned long long)*size, badblocks);
 	}
