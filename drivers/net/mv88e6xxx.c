@@ -385,7 +385,7 @@ static int mv88e6xxx_switch_reset(struct udevice *dev)
 	struct mv88e6xxx_priv *priv = dev_get_priv(dev);
 	int time_ms;
 	int val;
-	u8 port;
+	int port;
 
 	/* Disable all ports */
 	for (port = 0; port < priv->port_count; port++) {
