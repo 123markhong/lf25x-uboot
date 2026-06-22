@@ -584,9 +584,15 @@ static int tpm2_get_pcr_info(struct udevice *dev, u32 *supported_pcr,
 		 * so we have to calculate them based on that
 		 */
 		size_t pcr_select_bytes = (size_t)((num_pcr + 7) / 8);
+		size_t pcr_select_array_offset;
+
+		if (pcr_select_bytes && (size_t)i > SIZE_MAX / pcr_select_bytes)
+			goto out;
+		pcr_select_array_offset = (size_t)i * pcr_select_bytes;
+
 		size_t hash_offset = offsetof(struct tpml_pcr_selection, selection) +
 			(size_t)i * offsetof(struct tpms_pcr_selection, pcr_select) +
-			(size_t)i * pcr_select_bytes;
+			pcr_select_array_offset;
 		size_t size_select_offset =
 			hash_offset + offsetof(struct tpms_pcr_selection,
 					       size_of_select);
