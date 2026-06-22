@@ -231,7 +231,7 @@ int print_buffer(ulong addr, const void *data, uint width, uint count,
 
 		/* update references */
 		data += thislinelen * width;
-		addr += thislinelen * width;
+		addr += (ulong)thislinelen * width;
 		count -= thislinelen;
 
 		if (!IS_ENABLED(CONFIG_SPL_BUILD) && ctrlc())
