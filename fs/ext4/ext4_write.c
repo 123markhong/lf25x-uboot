@@ -993,7 +993,7 @@ int ext4fs_write(const char *fname, const char *buffer,
 	parent_itable_blkno = ext4fs_bg_get_inode_table_id(bgd, fs) +
 	    (parent_inodeno %
 	     le32_to_cpu(sblock->inodes_per_group)) / inodes_per_block;
-	blkoff = (parent_inodeno % inodes_per_block) * fs->inodesz;
+	blkoff = (long)(parent_inodeno % inodes_per_block) * fs->inodesz;
 	if (parent_itable_blkno != itable_blkno) {
 		memset(temp_ptr, '\0', fs->blksz);
 		ext4fs_devread((lbaint_t)parent_itable_blkno * fs->sect_perblk,
