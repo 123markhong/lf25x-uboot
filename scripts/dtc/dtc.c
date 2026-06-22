@@ -19,6 +19,7 @@
  */
 
 #include <sys/stat.h>
+#include <fcntl.h>
 
 #include "dtc.h"
 #include "srcpos.h"
@@ -138,19 +139,32 @@ static const char *guess_input_format(const char *fname, const char *fallback)
 	struct stat statbuf;
 	fdt32_t magic;
 	FILE *f;
+	int fd;
 
-	if (stat(fname, &statbuf) != 0)
+	fd = open(fname, O_RDONLY);
+	if (fd < 0)
 		return fallback;
 
-	if (S_ISDIR(statbuf.st_mode))
+	if (fstat(fd, &statbuf) != 0) {
+		close(fd);
+		return fallback;
+	}
+
+	if (S_ISDIR(statbuf.st_mode)) {
+		close(fd);
 		return "fs";
+	}
 
-	if (!S_ISREG(statbuf.st_mode))
+	if (!S_ISREG(statbuf.st_mode)) {
+		close(fd);
 		return fallback;
+	}
 
-	f = fopen(fname, "r");
-	if (f == NULL)
+	f = fdopen(fd, "r");
+	if (f == NULL) {
+		close(fd);
 		return fallback;
+	}
 	if (fread(&magic, 4, 1, f) != 1) {
 		fclose(f);
 		return fallback;
