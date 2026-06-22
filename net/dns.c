@@ -117,7 +117,8 @@ static void dns_handler(uchar *pkt, unsigned dest, struct in_addr sip,
 {
 	struct header *header;
 	const unsigned char *p, *e, *s;
-	u16 type, i;
+	u16 type;
+	unsigned int i;
 	int found, stop, dlen;
 	char ip_str[22];
 	struct in_addr ip_addr;
