@@ -1504,7 +1504,7 @@ void ispVMData(unsigned char *ByteData)
 signed char ispVMShift(signed char a_cCode)
 {
 	/* 09/11/07 NN added local variables initialization */
-	unsigned short iDataIndex  = 0;
+	unsigned int iDataIndex    = 0;
 	unsigned short iReadLoop   = 0;
 	signed char cRetCode       = 0;
 
