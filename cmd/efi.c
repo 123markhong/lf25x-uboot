@@ -107,7 +107,7 @@ static void *efi_build_mem_table(struct efi_mem_desc *desc_base, int size,
 	prev = NULL;
 	addr = 0;
 	dest = base;
-	end = (struct efi_mem_desc *)((ulong)base + count * desc_size);
+	end = (struct efi_mem_desc *)((ulong)base + (ulong)count * desc_size);
 	for (desc = base; desc < end;
 	     desc = efi_get_next_mem_desc(desc, desc_size)) {
 		bool merge = true;
