@@ -358,6 +358,6 @@ unsigned long sunxi_dram_init(void)
 	else
 		writel(0x00000201, &mctl_ctl->odtmap);
 
-	return para.page_size * (para.bus_width / 8) *
+	return (unsigned long)para.page_size * (para.bus_width / 8) *
 		(1 << (para.bank + para.rank + para.rows));
 }
