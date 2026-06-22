@@ -100,7 +100,7 @@ write:
 			printf("Dest write error @blk %ld\n", srcblk);
 			goto exit;
 		}
-		wrcnt += ret * destbz;
+		wrcnt += (unsigned long)ret * destbz;
 		destblk += ret;
 		if (ret < towrite) {
 			towrite -= ret;
