@@ -180,7 +180,7 @@ static char* BuildSRecord(char* pa, uint16_t sType, uint32_t addr,
   uint16_t  addrLen;
   uint16_t  sRLen;
   uint16_t  checkSum;
-  uint16_t  i;
+  int       i;
 
   switch (sType) {
   case 0:
