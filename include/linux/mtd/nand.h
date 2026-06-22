@@ -276,7 +276,8 @@ nanddev_pages_per_eraseblock(const struct nand_device *nand)
  */
 static inline size_t nanddev_eraseblock_size(const struct nand_device *nand)
 {
-	return nand->memorg.pagesize * nand->memorg.pages_per_eraseblock;
+	return (size_t)nand->memorg.pagesize *
+	       nand->memorg.pages_per_eraseblock;
 }
 
 /**
