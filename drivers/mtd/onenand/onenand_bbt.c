@@ -100,7 +100,7 @@ static int create_bbt(struct mtd_info *mtd, uint8_t * buf,
 			/* No need to read pages fully,
 			 * just read required OOB bytes */
 			ret = onenand_bbt_read_oob(mtd,
-					     from + j * mtd->writesize +
+					     from + (loff_t)j * mtd->writesize +
 					     bd->offs, &ops);
 
 			/* If it is a initial bad block, just ignore it */
