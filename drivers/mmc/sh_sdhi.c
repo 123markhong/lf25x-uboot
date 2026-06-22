@@ -402,7 +402,8 @@ static int sh_sdhi_single_write(struct sh_sdhi_host *host,
 static int sh_sdhi_multi_write(struct sh_sdhi_host *host, struct mmc_data *data)
 {
 	long time;
-	unsigned short i, sec, blocksize;
+	unsigned short i, blocksize;
+	uint sec;
 	const unsigned short *p = (const unsigned short *)data->src;
 	const u64 *q = (const u64 *)data->src;
 
