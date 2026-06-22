@@ -127,7 +127,7 @@ static int decode_elf64(FILE *felf, char **argv)
 
 	text_base = le64_to_cpu(header.e_entry);
 	section_header_base = le64_to_cpu(header.e_shoff);
-	section_header_size = le16_to_cpu(header.e_shentsize) *
+	section_header_size = (uint64_t)le16_to_cpu(header.e_shentsize) *
 			      le16_to_cpu(header.e_shnum);
 
 	sh_table = malloc(section_header_size);
