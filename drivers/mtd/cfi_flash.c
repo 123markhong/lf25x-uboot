@@ -2483,8 +2483,8 @@ ulong flash_get_size(phys_addr_t base, int banknum)
 
 		/* round up when converting to ms */
 		info->buffer_write_tout = (tmp + 999) / 1000;
-		tmp = (1 << qry.word_write_timeout_typ) *
-			(1 << qry.word_write_timeout_max);
+		tmp = (1UL << qry.word_write_timeout_typ) *
+			(1UL << qry.word_write_timeout_max);
 		/* round up when converting to ms */
 		info->write_tout = (tmp + 999) / 1000;
 		info->flash_id = FLASH_MAN_CFI;
