@@ -820,7 +820,7 @@ static ulong px30_vop_set_clk(struct px30_clk_priv *priv, ulong clk_id, uint hz)
 		}
 		assert(src_clk_div - 1 <= 255);
 		rkclk_set_pll(&cru->pll[CPLL], &cru->mode,
-			      CPLL, hz * src_clk_div);
+			      CPLL, (ulong)hz * src_clk_div);
 		rk_clrsetreg(&cru->clksel_con[5],
 			     DCLK_VOPB_SEL_MASK | DCLK_VOPB_PLL_SEL_MASK |
 			     DCLK_VOPB_DIV_MASK,
