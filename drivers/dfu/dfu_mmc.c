@@ -251,7 +251,7 @@ int dfu_get_medium_size_mmc(struct dfu_entity *dfu, u64 *size)
 
 	switch (dfu->layout) {
 	case DFU_RAW_ADDR:
-		*size = dfu->data.mmc.lba_size * dfu->data.mmc.lba_blk_size;
+		*size = (u64)dfu->data.mmc.lba_size * dfu->data.mmc.lba_blk_size;
 		return 0;
 	case DFU_FS_FAT:
 	case DFU_FS_EXT4:
