@@ -514,10 +514,10 @@ static int check_ivc_params(ulong qbase1, ulong qbase2, uint32_t nframes,
 	}
 
 	if (qbase1 < qbase2) {
-		if (qbase1 + frame_size * nframes > qbase2)
+		if (qbase1 + (ulong)frame_size * (ulong)nframes > qbase2)
 			ret = -EINVAL;
 	} else {
-		if (qbase2 + frame_size * nframes > qbase1)
+		if (qbase2 + (ulong)frame_size * (ulong)nframes > qbase1)
 			ret = -EINVAL;
 	}
 
