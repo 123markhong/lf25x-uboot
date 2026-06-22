@@ -92,7 +92,7 @@ int flash_erase(flash_info_t *info, int s_first, int s_last)
 	memset(&instr, 0, sizeof(instr));
 	instr.mtd = mtd;
 	instr.addr = mtd->erasesize * s_first;
-	instr.len = mtd->erasesize * (s_last + 1 - s_first);
+	instr.len = (uint64_t)mtd->erasesize * (s_last + 1 - s_first);
 	flash_set_verbose(1);
 	ret = mtd_erase(mtd, &instr);
 	flash_set_verbose(0);
