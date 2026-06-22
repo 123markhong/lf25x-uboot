@@ -952,7 +952,7 @@ fzap_iterate(dnode_end_t *zap_dnode, zap_phys_t *zap,
 	zap_leaf_phys_t *l;
 	void *l_in;
 	uint64_t idx, blkid;
-	uint16_t chunk;
+	int chunk;
 	int blksft = zfs_log2(zfs_to_cpu16(zap_dnode->dn.dn_datablkszsec,
 											zap_dnode->endian) << DNODE_SHIFT);
 	int err;
