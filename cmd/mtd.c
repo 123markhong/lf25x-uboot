@@ -77,7 +77,7 @@ static void mtd_dump_device_buf(struct mtd_info *mtd, u64 start_off,
 
 	if (has_pages) {
 		for (page = 0; page < npages; page++) {
-			u64 data_off = page * mtd->writesize;
+			u64 data_off = (u64)page * mtd->writesize;
 
 			printf("\nDump %d data bytes from 0x%08llx:\n",
 			       mtd->writesize, start_off + data_off);
