@@ -90,7 +90,7 @@ read:
 		srcblk += ret;
 		if (ret < toread) {
 			toread -= ret;
-			offset += ret * srcbz;
+			offset += (unsigned long)ret * srcbz;
 			goto read;
 		}
 		offset = 0;
@@ -104,7 +104,7 @@ write:
 		destblk += ret;
 		if (ret < towrite) {
 			towrite -= ret;
-			offset += ret * destbz;
+			offset += (unsigned long)ret * destbz;
 			goto write;
 		}
 	}
