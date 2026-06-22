@@ -105,7 +105,12 @@ static const struct uniphier_pinctrl_group uniphier_pro4_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(i2c6),
 	UNIPHIER_PINCTRL_GROUP(nand),
 	UNIPHIER_PINCTRL_GROUP(nand_cs1),
-	UNIPHIER_PINCTRL_GROUP(sd),
+	{
+		.name = "sd",
+		.pins = sd_pins,
+		.muxvals = sd_muxvals,
+		.num_pins = ARRAY_SIZE(sd_pins),
+	},
 	UNIPHIER_PINCTRL_GROUP(sd1),
 	{
 		.name = "spi0",
