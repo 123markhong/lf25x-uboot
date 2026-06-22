@@ -80,7 +80,12 @@ static const int usb3_muxvals[] = {8, 8};
 static const struct uniphier_pinctrl_group uniphier_pxs2_groups[] = {
 	UNIPHIER_PINCTRL_GROUP_SPL(emmc),
 	UNIPHIER_PINCTRL_GROUP_SPL(emmc_dat8),
-	UNIPHIER_PINCTRL_GROUP(ether_mii),
+	{
+		.name = "ether_mii",
+		.pins = ether_mii_pins,
+		.num_pins = ARRAY_SIZE(ether_mii_pins),
+		.muxvals = ether_mii_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(ether_rgmii),
 	UNIPHIER_PINCTRL_GROUP(ether_rmii),
 	{
