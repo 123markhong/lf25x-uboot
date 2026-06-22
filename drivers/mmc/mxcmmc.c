@@ -345,7 +345,7 @@ static int mxcmci_transfer_data(struct mxcmci_host *host)
 	int stat;
 	unsigned long length;
 
-	length = data->blocks * data->blocksize;
+	length = (unsigned long)data->blocks * data->blocksize;
 	host->datasize = 0;
 
 	if (data->flags & MMC_DATA_READ) {
