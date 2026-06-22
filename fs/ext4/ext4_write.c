@@ -568,7 +568,7 @@ static int ext4fs_delete_file(int inodeno)
 	ext4fs_sb_free_inodes_inc(fs->sb);
 	/* journal backup */
 	memset(journal_buffer, '\0', fs->blksz);
-	status = ext4fs_devread(ext4fs_bg_get_inode_id(bgd, fs) *
+	status = ext4fs_devread((lbaint_t)ext4fs_bg_get_inode_id(bgd, fs) *
 				fs->sect_perblk, 0, fs->blksz, journal_buffer);
 	if (status == 0)
 		goto fail;
