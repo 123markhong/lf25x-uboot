@@ -603,7 +603,7 @@ static int stm32_i2c_choose_solution(u32 i2cclk,
 	u32 af_delay_min;
 	u32 dnf_delay;
 	u32 tsync;
-	u16 l, h;
+	u32 l, h;
 	bool sol_found = false;
 	int ret = 0;
 
