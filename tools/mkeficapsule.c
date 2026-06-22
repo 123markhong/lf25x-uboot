@@ -141,7 +141,8 @@ static int read_bin_file(char *bin, uint8_t **data, off_t *bin_size)
 	if (!buf) {
 		size_t alloc_size = (size_t)bin_stat.st_size;
 
-		fprintf(stderr, "cannot allocate memory: %zx\n", alloc_size);
+		fprintf(stderr, "cannot allocate memory: %x\n",
+			(unsigned int)alloc_size);
 		ret = -1;
 		goto err;
 	}
