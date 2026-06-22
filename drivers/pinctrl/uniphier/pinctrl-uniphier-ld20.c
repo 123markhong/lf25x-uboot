@@ -78,7 +78,12 @@ static const struct uniphier_pinctrl_group uniphier_ld20_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(emmc),
 	UNIPHIER_PINCTRL_GROUP(emmc_dat8),
 	UNIPHIER_PINCTRL_GROUP(ether_rgmii),
-	UNIPHIER_PINCTRL_GROUP(ether_rmii),
+	{
+		.name = "ether_rmii",
+		.pins = ether_rmii_pins,
+		.num_pins = ARRAY_SIZE(ether_rmii_pins),
+		.muxvals = ether_rmii_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(i2c0),
 	UNIPHIER_PINCTRL_GROUP(i2c1),
 	UNIPHIER_PINCTRL_GROUP(i2c3),
