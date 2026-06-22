@@ -740,7 +740,7 @@ int spi_nor_scan(struct spi_nor *nor)
 	mtd->type = MTD_NORFLASH;
 	mtd->writesize = 1;
 	mtd->flags = MTD_CAP_NORFLASH;
-	mtd->size = info->sector_size * info->n_sectors;
+	mtd->size = (u64)info->sector_size * info->n_sectors;
 	mtd->_erase = spi_nor_erase_tiny;
 	mtd->_read = spi_nor_read_tiny;
 	mtd->_write = spi_nor_write_tiny;
