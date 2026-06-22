@@ -2478,8 +2478,8 @@ ulong flash_get_size(phys_addr_t base, int banknum)
 		tmp = 1 << qry.block_erase_timeout_typ;
 		info->erase_blk_tout = tmp *
 			(1 << qry.block_erase_timeout_max);
-		tmp = (1 << qry.buf_write_timeout_typ) *
-			(1 << qry.buf_write_timeout_max);
+		tmp = (1UL << qry.buf_write_timeout_typ) *
+			(1UL << qry.buf_write_timeout_max);
 
 		/* round up when converting to ms */
 		info->buffer_write_tout = (tmp + 999) / 1000;
