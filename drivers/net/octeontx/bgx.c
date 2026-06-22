@@ -1453,7 +1453,7 @@ int octeontx_bgx_probe(struct udevice *dev)
 {
 	int err;
 	struct bgx *bgx = dev_get_priv(dev);
-	u8 lmac = 0;
+	int lmac = 0;
 	int qlm[4] = {-1, -1, -1, -1};
 	int bgx_idx, node;
 	int inc = 1;
