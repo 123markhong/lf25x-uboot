@@ -209,18 +209,18 @@ static void exynos_fimd_set_clock(struct exynos_fb_priv *priv)
 	unsigned long long src_clock;
 
 	if (priv->dual_lcd_enabled) {
-		pixel_clock = priv->vl_freq *
+		pixel_clock = (unsigned long)priv->vl_freq *
 				(priv->vl_hspw + priv->vl_hfpd +
 				 priv->vl_hbpd + priv->vl_col / 2) *
 				(priv->vl_vspw + priv->vl_vfpd +
 				 priv->vl_vbpd + priv->vl_row);
 	} else if (priv->interface_mode == FIMD_CPU_INTERFACE) {
-		pixel_clock = priv->vl_freq *
+		pixel_clock = (unsigned long)priv->vl_freq *
 				priv->vl_width * priv->vl_height *
 				(priv->cs_setup + priv->wr_setup +
 				 priv->wr_act + priv->wr_hold + 1);
 	} else {
-		pixel_clock = priv->vl_freq *
+		pixel_clock = (unsigned long)priv->vl_freq *
 				(priv->vl_hspw + priv->vl_hfpd +
 				 priv->vl_hbpd + priv->vl_col) *
 				(priv->vl_vspw + priv->vl_vfpd +
