@@ -273,9 +273,19 @@ efi_status_t efi_esrt_add_from_fmp(struct efi_firmware_management_protocol *fmp)
 	 * Iterate over all the FW images in the FMP.
 	 */
 	for (u32 desc_idx = 0; desc_idx < desc_count; desc_idx++) {
-		struct efi_firmware_image_descriptor *cur_img_info =
-			(struct efi_firmware_image_descriptor *)
-			((uintptr_t)img_info + (size_t)desc_idx * (size_t)desc_size);
+		size_t desc_idx_sz = (size_t)desc_idx;
+		size_t offset;
+		struct efi_firmware_image_descriptor *cur_img_info;
+
+		if (desc_size && desc_idx_sz > SIZE_MAX / desc_size) {
+			EFI_PRINT("ESRT descriptor offset overflow\n");
+			ret = EFI_INVALID_PARAMETER;
+			goto out;
+		}
+
+		offset = desc_idx_sz * desc_size;
+		cur_img_info = (struct efi_firmware_image_descriptor *)
+			((uintptr_t)img_info + offset);
 
 		/*
 		 * Obtain the ESRT entry for the FW image with fw_class
