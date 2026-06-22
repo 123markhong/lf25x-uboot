@@ -782,9 +782,9 @@ struct expr *expr_transform(struct expr *e)
 			// !a<'x' -> a>='x'
 			new_type = e->left.expr->type == E_LTH ? E_GEQ : E_LEQ;
 			tmp = e->left.expr;
+			tmp->type = new_type;
 			free(e);
 			e = tmp;
-			e->type = new_type;
 			break;
 		}
 		case E_OR:
