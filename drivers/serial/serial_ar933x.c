@@ -70,7 +70,7 @@ static void ar933x_serial_get_scale_step(u32 clk, u32 baud,
 		u64 tstep;
 		int diff;
 
-		tstep = baud * (tscale + 1);
+		tstep = (u64)baud * (tscale + 1);
 		tstep *= (2 << 16);
 		do_div(tstep, clk);
 
