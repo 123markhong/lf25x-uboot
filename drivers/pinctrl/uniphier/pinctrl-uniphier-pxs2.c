@@ -96,7 +96,7 @@ static const struct uniphier_pinctrl_group uniphier_pxs2_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(spi1),
 	UNIPHIER_PINCTRL_GROUP(system_bus),
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs1),
-	UNIPHIER_PINCTRL_GROUP_SPL(uart0),
+	UNIPHIER_PINCTRL_GROUP(uart0),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart0b),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart1),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart2),
