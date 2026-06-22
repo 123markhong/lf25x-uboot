@@ -88,12 +88,12 @@ static void *eqos_alloc_descs(struct eqos_priv *eqos, unsigned int num)
 		   eqos->config->axi_bus_width;
 	if (desc_pad <= EQOS_DMA_CH0_CONTROL_DSL_MASK) {
 		eqos->use_cached_mem = true;
-		descs = memalign(eqos->desc_size, num * eqos->desc_size);
+		descs = memalign(eqos->desc_size, (size_t)num * eqos->desc_size);
 	} else {
 		eqos->use_cached_mem = false;
 		eqos->desc_size = sizeof(struct eqos_desc);
 #ifdef CONFIG_SYS_NONCACHED_MEMORY
-		descs = (void *)noncached_alloc(num * eqos->desc_size, ARCH_DMA_MINALIGN);
+		descs = (void *)noncached_alloc((size_t)num * eqos->desc_size, ARCH_DMA_MINALIGN);
 #else
 		log_err("DMA descriptors with cached memory.");
 #endif
