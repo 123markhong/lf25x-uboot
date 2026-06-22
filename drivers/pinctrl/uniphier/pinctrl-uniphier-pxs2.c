@@ -98,7 +98,12 @@ static const struct uniphier_pinctrl_group uniphier_pxs2_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs1),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart0),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart0b),
-	UNIPHIER_PINCTRL_GROUP_SPL(uart1),
+	{
+		.name = "uart1",
+		.pins = uart1_pins,
+		.num_pins = ARRAY_SIZE(uart1_pins),
+		.muxvals = uart1_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP_SPL(uart2),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart3),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart3b),
