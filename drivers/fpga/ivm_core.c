@@ -2436,8 +2436,8 @@ void ispVMBypass(signed char ScanType, unsigned short Bits)
 void ispVMStateMachine(signed char cNextJTAGState)
 {
 	/* 09/11/07 NN added local variables initialization */
-	signed char cPathIndex  = 0;
-	signed char cStateIndex = 0;
+	int cPathIndex  = 0;
+	int cStateIndex = 0;
 
 	if ((g_cCurrentJTAGState == cNextJTAGState) &&
 		(cNextJTAGState != RESET)) {
