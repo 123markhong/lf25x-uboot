@@ -477,7 +477,8 @@ void exynos_fimd_lcd_init(struct udevice *dev)
 
 unsigned long exynos_fimd_calc_fbsize(struct exynos_fb_priv *priv)
 {
-	return priv->vl_col * priv->vl_row * (VNBITS(priv->vl_bpix) / 8);
+	return (unsigned long)priv->vl_col * priv->vl_row *
+		(VNBITS(priv->vl_bpix) / 8);
 }
 
 int exynos_fb_of_to_plat(struct udevice *dev)
