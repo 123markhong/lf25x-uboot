@@ -768,13 +768,17 @@ struct expr *expr_transform(struct expr *e)
 			e = tmp;
 			break;
 		case E_LEQ:
-		case E_GEQ:
+		case E_GEQ: {
+			struct expr *old;
+
 			// !a<='x' -> a>'x'
 			tmp = e->left.expr;
-			free(e);
+			tmp->type = tmp->type == E_LEQ ? E_GTH : E_LTH;
+			old = e;
 			e = tmp;
-			e->type = e->type == E_LEQ ? E_GTH : E_LTH;
+			free(old);
 			break;
+		}
 		case E_LTH:
 		case E_GTH: {
 			enum expr_type new_type;
