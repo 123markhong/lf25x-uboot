@@ -80,7 +80,7 @@ static int nvme_setup_prps(struct nvme_dev *dev, u64 *prp2,
 		 * Always increase in increments of pages.  It doesn't waste
 		 * much memory and reduces the number of allocations.
 		 */
-		dev->prp_pool = memalign(page_size, num_pages * page_size);
+		dev->prp_pool = memalign(page_size, (size_t)num_pages * page_size);
 		if (!dev->prp_pool) {
 			printf("Error: malloc prp_pool fail\n");
 			return -ENOMEM;
