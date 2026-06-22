@@ -800,8 +800,7 @@ static int nandbcb_get_next_good_blk_addr(struct boot_config *boot_cfg,
 		return ret;
 
 	/* get next image address */
-	bs_cfg->next_bs_addr = (u32)(offset + used + mtd->erasesize - 1)
-				 / (u32)mtd->erasesize * mtd->erasesize;
+	bs_cfg->next_bs_addr = ALIGN(offset + used, mtd->erasesize);
 
 	return ret;
 }
