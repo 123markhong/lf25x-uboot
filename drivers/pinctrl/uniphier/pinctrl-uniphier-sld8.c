@@ -69,7 +69,13 @@ static const unsigned usb2_pins[] = {114, 115};
 static const int usb2_muxvals[] = {1, 1};
 
 static const struct uniphier_pinctrl_group uniphier_sld8_groups[] = {
-	UNIPHIER_PINCTRL_GROUP_SPL(emmc),
+	{
+		.name = "emmc",
+		.pins = emmc_pins,
+		.num_pins = ARRAY_SIZE(emmc_pins),
+		.muxvals = emmc_muxvals,
+		.num_muxvals = ARRAY_SIZE(emmc_muxvals),
+	},
 	UNIPHIER_PINCTRL_GROUP_SPL(emmc_dat8),
 	UNIPHIER_PINCTRL_GROUP(ether_mii),
 	UNIPHIER_PINCTRL_GROUP(ether_rmii),
