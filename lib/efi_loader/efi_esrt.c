@@ -275,7 +275,7 @@ efi_status_t efi_esrt_add_from_fmp(struct efi_firmware_management_protocol *fmp)
 	for (u32 desc_idx = 0; desc_idx < desc_count; desc_idx++) {
 		struct efi_firmware_image_descriptor *cur_img_info =
 			(struct efi_firmware_image_descriptor *)
-			((uintptr_t)img_info + desc_idx * desc_size);
+			((uintptr_t)img_info + (size_t)desc_idx * desc_size);
 
 		/*
 		 * Obtain the ESRT entry for the FW image with fw_class
