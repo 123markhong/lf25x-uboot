@@ -117,7 +117,12 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 		.num_pins = ARRAY_SIZE(nand_cs1_pins),
 		.muxvals = nand_cs1_muxvals,
 	},
-	UNIPHIER_PINCTRL_GROUP(sd),
+	{
+		.name = "sd",
+		.pins = sd_pins,
+		.num_pins = ARRAY_SIZE(sd_pins),
+		.muxvals = sd_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(spi0),
 	{
 		.name = "spi1",
