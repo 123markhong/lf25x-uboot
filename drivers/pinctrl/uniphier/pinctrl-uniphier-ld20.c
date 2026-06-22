@@ -76,7 +76,13 @@ static const int usb3_muxvals[] = {0, 0};
 
 static const struct uniphier_pinctrl_group uniphier_ld20_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(emmc),
-	UNIPHIER_PINCTRL_GROUP(emmc_dat8),
+	{
+		.name = "emmc_dat8",
+		.pins = emmc_dat8_pins,
+		.num_pins = ARRAY_SIZE(emmc_dat8_pins),
+		.muxvals = emmc_dat8_muxvals,
+		.num_muxvals = ARRAY_SIZE(emmc_dat8_muxvals),
+	},
 	UNIPHIER_PINCTRL_GROUP(ether_rgmii),
 	UNIPHIER_PINCTRL_GROUP(ether_rmii),
 	UNIPHIER_PINCTRL_GROUP(i2c0),
