@@ -98,7 +98,12 @@ static const struct uniphier_pinctrl_group uniphier_pro5_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(spi1),
 	UNIPHIER_PINCTRL_GROUP(spi2),
 	UNIPHIER_PINCTRL_GROUP(system_bus),
-	UNIPHIER_PINCTRL_GROUP(system_bus_cs0),
+	{
+		.name = "system_bus_cs0",
+		.pins = system_bus_cs0_pins,
+		.num_pins = ARRAY_SIZE(system_bus_cs0_pins),
+		.muxvals = system_bus_cs0_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(system_bus_cs1),
 	{
 		.name = "system_bus_cs2",
