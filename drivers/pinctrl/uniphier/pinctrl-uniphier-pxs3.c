@@ -92,7 +92,12 @@ static const struct uniphier_pinctrl_group uniphier_pxs3_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(ether1_rgmii),
 	UNIPHIER_PINCTRL_GROUP(ether1_rmii),
 	UNIPHIER_PINCTRL_GROUP(i2c0),
-	UNIPHIER_PINCTRL_GROUP(i2c1),
+	{
+		.name = "i2c1",
+		.pins = i2c1_pins,
+		.num_pins = ARRAY_SIZE(i2c1_pins),
+		.muxvals = i2c1_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP(i2c2),
 	UNIPHIER_PINCTRL_GROUP(i2c3),
 	{
