@@ -86,7 +86,7 @@ read:
 			printf("Src read error @blk %ld\n", srcblk);
 			goto exit;
 		}
-		rdcnt += ret * srcbz;
+		rdcnt += (unsigned long)ret * srcbz;
 		srcblk += ret;
 		if (ret < toread) {
 			toread -= ret;
