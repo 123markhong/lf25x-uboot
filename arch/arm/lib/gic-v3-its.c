@@ -74,7 +74,7 @@ int gic_lpi_tables_init(u64 base, u32 num_redist)
 	int i;
 	u64 redist_lpi_base;
 	u64 pend_base;
-	ulong pend_tab_total_sz = num_redist * LPI_PENDBASE_SZ;
+	ulong pend_tab_total_sz = (ulong)num_redist * LPI_PENDBASE_SZ;
 	void *pend_tab_va;
 
 	if (gic_v3_its_get_gic_addr(&priv))
