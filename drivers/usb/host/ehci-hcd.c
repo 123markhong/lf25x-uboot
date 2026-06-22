@@ -1402,7 +1402,8 @@ static struct int_queue *_ehci_create_int_queue(struct usb_device *dev,
 			((usb_pipein(pipe) ? 1 : 0) << 8) | /* IN/OUT token */
 			0x80); /* active */
 		td->qt_buffer[0] =
-		    cpu_to_hc32((unsigned long)buffer + i * elementsize);
+		    cpu_to_hc32((unsigned long)buffer +
+				((unsigned long)i * elementsize));
 		td->qt_buffer[1] =
 		    cpu_to_hc32((td->qt_buffer[0] + 0x1000) & ~0xfff);
 		td->qt_buffer[2] =
@@ -1412,7 +1413,7 @@ static struct int_queue *_ehci_create_int_queue(struct usb_device *dev,
 		td->qt_buffer[4] =
 		    cpu_to_hc32((td->qt_buffer[0] + 0x4000) & ~0xfff);
 
-		*buf = buffer + i * elementsize;
+		*buf = buffer + ((unsigned long)i * elementsize);
 		toggle ^= 1;
 	}
 
