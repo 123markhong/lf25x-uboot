@@ -293,7 +293,7 @@ static void ca_ni_enable_tx_rx(void)
 #define AUTO_SCAN_TIMEOUT 3000 /* 3 seconds */
 static int ca_ni_auto_scan_active_port(struct cortina_ni_priv *priv)
 {
-	u8 i;
+	u32 i;
 	u16 data;
 	u32 start_time;
 
