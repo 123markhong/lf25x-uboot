@@ -299,8 +299,9 @@ static int part_get_info_amiga(struct blk_desc *dev_desc, int part,
     if (!p) return -1;
 
     g = (struct amiga_part_geometry *)&(p->environment);
-    info->start = g->low_cyl  * g->block_per_track * g->surfaces;
-    info->size  = (g->high_cyl - g->low_cyl + 1) * g->block_per_track * g->surfaces - 1;
+    info->start = (lbaint_t)g->low_cyl * g->block_per_track * g->surfaces;
+    info->size  = (lbaint_t)(g->high_cyl - g->low_cyl + 1) *
+		  g->block_per_track * g->surfaces - 1;
     info->blksz = rdb.block_bytes;
     bcpl_strcpy((char *)info->name, p->drive_name);
 
