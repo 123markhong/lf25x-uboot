@@ -1820,7 +1820,7 @@ int onenand_erase(struct mtd_info *mtd, struct erase_info *instr)
 
 			block_size = region->erasesize;
 			region_end = region->offset
-				+ region->erasesize * region->numblocks;
+				+ (unsigned long long)region->erasesize * region->numblocks;
 
 			if (len & (block_size - 1)) {
 				/* This has been checked at MTD
