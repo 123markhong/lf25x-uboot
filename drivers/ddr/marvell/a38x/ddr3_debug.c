@@ -575,7 +575,8 @@ int ddr3_tip_print_log(u32 dev_num, u32 mem_addr)
  */
 int ddr3_tip_print_stability_log(u32 dev_num)
 {
-	u8 if_id = 0, csindex = 0, bus_id = 0, idx = 0;
+	u8 if_id = 0, bus_id = 0, idx = 0;
+	unsigned int csindex = 0;
 	u32 reg_data;
 #if defined(CONFIG_DDR4)
 	u32 reg_data1;
