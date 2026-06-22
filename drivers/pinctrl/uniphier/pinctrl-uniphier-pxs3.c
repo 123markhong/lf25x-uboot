@@ -98,7 +98,13 @@ static const struct uniphier_pinctrl_group uniphier_pxs3_groups[] = {
 	UNIPHIER_PINCTRL_GROUP(nand),
 	UNIPHIER_PINCTRL_GROUP(sd),
 	UNIPHIER_PINCTRL_GROUP(spi0),
-	UNIPHIER_PINCTRL_GROUP(spi1),
+	{
+		.name = "spi1",
+		.pins = spi1_pins,
+		.num_pins = ARRAY_SIZE(spi1_pins),
+		.muxvals = spi1_muxvals,
+		.num_muxvals = ARRAY_SIZE(spi1_muxvals),
+	},
 	UNIPHIER_PINCTRL_GROUP(system_bus),
 	{
 		.name = "system_bus_cs1",
