@@ -145,7 +145,7 @@ static int hsdk_creg_gpio_probe(struct udevice *dev)
 
 	/* Setup default GPIO value if we have "gpio-default-val" array */
 	if (defaults)
-		for (u8 i = 0; i < gpio_count; i++)
+		for (u32 i = 0; i < gpio_count; i++)
 			hsdk_creg_gpio_set_value(dev, i, defaults[i]);
 
 	pr_debug("%s GPIO [0x%p] controller with %d gpios probed\n",
