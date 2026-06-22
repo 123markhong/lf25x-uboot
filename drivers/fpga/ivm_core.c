@@ -1359,7 +1359,8 @@ void ispVMData(unsigned char *ByteData)
 {
 	/* 09/11/07 NN added local variables initialization */
 	unsigned short size               = 0;
-	unsigned short i, j, m, getData   = 0;
+	int i;
+	unsigned short j, m, getData      = 0;
 	unsigned char cDataByte           = 0;
 	unsigned char compress            = 0;
 	unsigned short FFcount            = 0;
