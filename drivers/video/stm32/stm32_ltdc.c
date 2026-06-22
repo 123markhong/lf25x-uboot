@@ -642,7 +642,7 @@ static void stm32_ltdc_set_layer1(struct udevice *dev, ulong fb_addr)
 		break;
 	case 180:
 		writel(fb_addr + (pitch_in_bytes * (y1 - y0 + 1) - 1) +
-		       (bpp >> 3) * (x1 - x0 + 1) - 1, regs + LTDC_L1CFBAR);
+		       ((ulong)(bpp >> 3)) * (x1 - x0 + 1) - 1, regs + LTDC_L1CFBAR);
 		break;
 	case 90:
 		writel(fb_addr + (bpp >> 3) * (x1 - x0 + 1) - 1, regs + LTDC_L1CFBAR);
