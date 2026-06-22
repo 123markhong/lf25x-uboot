@@ -109,7 +109,12 @@ static const struct uniphier_pinctrl_group uniphier_pro5_groups[] = {
 	UNIPHIER_PINCTRL_GROUP_SPL(uart0),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart0b),
 	UNIPHIER_PINCTRL_GROUP_SPL(uart1),
-	UNIPHIER_PINCTRL_GROUP_SPL(uart2),
+	{
+		.name = "uart2",
+		.pins = uart2_pins,
+		.num_pins = ARRAY_SIZE(uart2_pins),
+		.muxvals = uart2_muxvals,
+	},
 	UNIPHIER_PINCTRL_GROUP_SPL(uart3),
 	UNIPHIER_PINCTRL_GROUP(usb0),
 	UNIPHIER_PINCTRL_GROUP(usb1),
