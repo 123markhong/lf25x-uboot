@@ -754,7 +754,7 @@ static int renesas_sdhi_send_cmd(struct udevice *dev, struct mmc_cmd *cmd,
 			buf = (void *)data->src;
 			bbflags = GEN_BB_READ;
 		}
-		len = data->blocks * data->blocksize;
+		len = (size_t)data->blocks * data->blocksize;
 
 		ret = bounce_buffer_start_extalign(&bbstate, buf, len, bbflags,
 						   RENESAS_SDHI_DMA_ALIGNMENT,
