@@ -2573,7 +2573,7 @@ signed char ispVMSend(unsigned short a_usiDataSize)
 signed char ispVMRead(unsigned short a_usiDataSize)
 {
 	/* 09/11/07 NN added local variables initialization */
-	unsigned short usDataSizeIndex    = 0;
+	unsigned int usDataSizeIndex      = 0;
 	unsigned short usErrorCount       = 0;
 	unsigned short usLastBitIndex     = 0;
 	unsigned char cDataByte           = 0;
