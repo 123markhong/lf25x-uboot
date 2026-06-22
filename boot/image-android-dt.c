@@ -59,7 +59,7 @@ bool android_dt_get_fdt_by_index(ulong hdr_addr, u32 index, ulong *addr,
 		return false;
 	}
 
-	e_addr = hdr_addr + entries_offset + index * entry_size;
+	e_addr = hdr_addr + entries_offset + (ulong)index * entry_size;
 	e = map_sysmem(e_addr, sizeof(*e));
 	dt_offset = fdt32_to_cpu(e->dt_offset);
 	dt_size = fdt32_to_cpu(e->dt_size);
