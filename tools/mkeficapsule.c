@@ -179,8 +179,9 @@ static int write_capsule_file(FILE *f, void *data, size_t size, const char *msg)
 
 	size_written = fwrite(data, 1, size, f);
 	if (size_written < size) {
-		fprintf(stderr, "%s: write failed (%zx != %zx)\n", msg,
-			size_written, size);
+		fprintf(stderr, "%s: write failed (%llu != %llu)\n", msg,
+			(unsigned long long)size_written,
+			(unsigned long long)size);
 		return -1;
 	}
 
