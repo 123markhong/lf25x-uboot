@@ -311,7 +311,7 @@ int _log_buffer(enum log_category_t cat, enum log_level_t level,
 
 		/* update references */
 		data += thislinelen * width;
-		addr += thislinelen * width;
+		addr += (ulong)thislinelen * width;
 		count -= thislinelen;
 	}
 
