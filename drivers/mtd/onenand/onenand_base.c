@@ -1736,7 +1736,7 @@ int onenand_erase(struct mtd_info *mtd, struct erase_info *instr)
 	unsigned int len = instr->len;
 	int ret = 0, i;
 	struct mtd_erase_region_info *region = NULL;
-	unsigned int region_end = 0;
+	loff_t region_end = 0;
 
 	pr_debug("onenand_erase: start = 0x%08x, len = %i\n",
 			(unsigned int) addr, len);
@@ -1748,7 +1748,7 @@ int onenand_erase(struct mtd_info *mtd, struct erase_info *instr)
 
 		block_size = region->erasesize;
 		region_end = region->offset
-			+ region->erasesize * region->numblocks;
+			+ (loff_t)region->erasesize * region->numblocks;
 
 		/* Start address within region must align on block boundary.
 		 * Erase region's start offset is always block start address.
