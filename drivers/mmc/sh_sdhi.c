@@ -316,7 +316,8 @@ static int sh_sdhi_single_read(struct sh_sdhi_host *host, struct mmc_data *data)
 static int sh_sdhi_multi_read(struct sh_sdhi_host *host, struct mmc_data *data)
 {
 	long time;
-	unsigned short blocksize, i, sec;
+	unsigned short blocksize, i;
+	uint sec;
 	unsigned short *p = (unsigned short *)data->dest;
 	u64 *q = (u64 *)data->dest;
 
