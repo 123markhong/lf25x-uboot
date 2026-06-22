@@ -585,7 +585,7 @@ static int tpm2_get_pcr_info(struct udevice *dev, u32 *supported_pcr,
 		 */
 		u32 hash_offset = offsetof(struct tpml_pcr_selection, selection) +
 			i * offsetof(struct tpms_pcr_selection, pcr_select) +
-			i * ((num_pcr + 7) / 8);
+			i * (size_t)((num_pcr + 7) / 8);
 		u32 size_select_offset =
 			hash_offset + offsetof(struct tpms_pcr_selection,
 					       size_of_select);
