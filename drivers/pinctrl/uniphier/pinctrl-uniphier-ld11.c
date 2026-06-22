@@ -86,7 +86,12 @@ static const struct uniphier_pinctrl_group uniphier_ld11_groups[] = {
 		.muxvals = uart3_muxvals,
 	},
 	UNIPHIER_PINCTRL_GROUP(usb0),
-	UNIPHIER_PINCTRL_GROUP(usb1),
+	{
+		.name = "usb1",
+		.pins = usb1_pins,
+		.muxvals = usb1_muxvals,
+		.pins_count = ARRAY_SIZE(usb1_pins),
+	},
 	UNIPHIER_PINCTRL_GROUP(usb2),
 };
 
