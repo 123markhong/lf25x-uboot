@@ -97,7 +97,7 @@ int zzip(void *dst, unsigned long *lenp, unsigned char *src,
 			if (!func) {
 				dst += (left_len - s.avail_out);
 				*lenp -= (left_len - s.avail_out);
-			} else if (left_len - s.avail_out > 0) {
+			} else if (s.avail_out < left_len) {
 				r = func((unsigned long)dst,
 					left_len - s.avail_out);
 				if (r < 0)
