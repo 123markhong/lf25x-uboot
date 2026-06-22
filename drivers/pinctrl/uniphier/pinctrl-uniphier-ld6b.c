@@ -180,7 +180,12 @@ static const struct uniphier_pinctrl_group uniphier_ld6b_groups[] = {
 		.num_pins = ARRAY_SIZE(system_bus_cs4_pins),
 		.muxvals = system_bus_cs4_muxvals,
 	},
-	UNIPHIER_PINCTRL_GROUP(system_bus_cs5),
+	{
+		.name = "system_bus_cs5",
+		.pins = system_bus_cs5_pins,
+		.num_pins = ARRAY_SIZE(system_bus_cs5_pins),
+		.muxvals = system_bus_cs5_muxvals,
+	},
 	{
 		.name = "uart0",
 		.pins = uart0_pins,
