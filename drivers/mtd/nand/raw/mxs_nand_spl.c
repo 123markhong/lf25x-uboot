@@ -255,7 +255,7 @@ int nand_spl_load_image(uint32_t offs, unsigned int size, void *dst)
 	nand_page_per_block = mtd->erasesize / mtd->writesize;
 
 	while (block <= lastblock && size > 0) {
-		if (!is_badblock(mtd, mtd->erasesize * block, 1)) {
+		if (!is_badblock(mtd, (loff_t)mtd->erasesize * block, 1)) {
 			/* Skip bad blocks */
 			while (page < nand_page_per_block && size) {
 				int curr_page = nand_page_per_block * block + page;
