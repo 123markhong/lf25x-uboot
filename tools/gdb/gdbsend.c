@@ -86,7 +86,7 @@ main(int ac, char **av)
 	Perror("can't allocate %ld bytes for image", ist.st_size);
 
     if ((c = read(ifd, image, ist.st_size)) < 0)
-	Perror("read of %d bytes from '%s' failed", ist.st_size, ifn);
+	Perror("read of %ld bytes from '%s' failed", ist.st_size, ifn);
 
     if (c != ist.st_size)
 	Error("read of %ld bytes from '%s' failed (%d)", ist.st_size, ifn, c);
