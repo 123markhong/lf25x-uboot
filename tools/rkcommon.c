@@ -318,13 +318,14 @@ static void rkcommon_set_header0(void *buf, struct image_tool_params *params)
 		init_boot_size = spl_params.init_size + RK_MAX_BOOT_SIZE;
 	hdr->init_boot_size = cpu_to_le16(init_boot_size / RK_BLK_SIZE);
 
-	/* lgtm[cpp/weak-cryptographic-algorithm]
+	/*
 	 * RC4 with a public hardcoded key (see rc4_key[] above) encodes the
 	 * v1 header block for legacy Rockchip BootROM backward compatibility.
 	 * This is BootROM-mandated obfuscation, not a security mechanism.
 	 * v2 headers (rk3568+) use SHA256 instead. This code path is only
 	 * reached when processing legacy Rockchip v1 image types.
 	 */
+	// lgtm[cpp/weak-cryptographic-algorithm]
 	rc4_encode(buf, RK_BLK_SIZE, rc4_key);
 }
 
@@ -376,11 +377,13 @@ void rkcommon_set_header(void *buf,  struct stat *sbuf,  int ifd,
 			memcpy(&hdr->magic, rkcommon_get_spl_hdr(params), RK_SPL_HDR_SIZE);
 
 		if (rkcommon_need_rc4_spl(params))
+			// lgtm[cpp/weak-cryptographic-algorithm]
 			rkcommon_rc4_encode_spl(buf, RK_SPL_HDR_START,
 						spl_params.init_size);
 
 		if (spl_params.boot_file) {
 			if (rkcommon_need_rc4_spl(params))
+				// lgtm[cpp/weak-cryptographic-algorithm]
 				rkcommon_rc4_encode_spl(buf + RK_SPL_HDR_START,
 							spl_params.init_size,
 							spl_params.boot_size);
@@ -412,6 +415,7 @@ static int rkcommon_parse_header(const void *buf, struct header0_info *header0,
 	 * with the well-known key.
 	 */
 	memcpy((void *)header0, buf, sizeof(struct header0_info));
+	// lgtm[cpp/weak-cryptographic-algorithm]
 	rc4_encode((void *)header0, sizeof(struct header0_info), rc4_key);
 
 	if (le32_to_cpu(header0->magic) != RK_MAGIC)
@@ -542,6 +546,7 @@ void rkcommon_rc4_encode_spl(void *buf, unsigned int offset, unsigned int size)
 	while (remaining > 0) {
 		int step = (remaining > RK_BLK_SIZE) ? RK_BLK_SIZE : remaining;
 
+		// lgtm[cpp/weak-cryptographic-algorithm]
 		rc4_encode(buf + offset, step, rc4_key);
 		offset += RK_BLK_SIZE;
 		remaining -= step;

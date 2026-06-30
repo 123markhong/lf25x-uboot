@@ -18,12 +18,13 @@ static void rkimage_set_header(void *buf, struct stat *sbuf, int ifd,
 	memcpy(buf, rkcommon_get_spl_hdr(params), RK_SPL_HDR_SIZE);
 
 	if (rkcommon_need_rc4_spl(params))
-		/* lgtm[cpp/weak-cryptographic-algorithm]
+		/*
 		 * RC4 with a public hardcoded key encodes the SPL payload for
 		 * Rockchip BootROM backward compatibility (legacy SoCs only:
 		 * rk3066, rk3188). This is BootROM-mandated obfuscation, not
 		 * a security mechanism. v2 Rockchip headers use SHA256 instead.
 		 */
+		// lgtm[cpp/weak-cryptographic-algorithm]
 		rkcommon_rc4_encode_spl(buf, 0, params->file_size);
 }
 

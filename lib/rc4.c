@@ -12,6 +12,9 @@
 #endif
 #include <rc4.h>
 
+// RC4 is used exclusively for Rockchip BootROM-mandated obfuscation
+// with a public hardcoded key. It is not a security mechanism.
+// lgtm[cpp/weak-cryptographic-algorithm]
 void rc4_encode(unsigned char *buf, unsigned int len, const unsigned char key[16])
 {
 	unsigned char s[256], k[256], temp;
