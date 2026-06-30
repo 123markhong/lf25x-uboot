@@ -318,6 +318,13 @@ static void rkcommon_set_header0(void *buf, struct image_tool_params *params)
 		init_boot_size = spl_params.init_size + RK_MAX_BOOT_SIZE;
 	hdr->init_boot_size = cpu_to_le16(init_boot_size / RK_BLK_SIZE);
 
+	/* lgtm[cpp/weak-cryptographic-algorithm]
+	 * RC4 with a public hardcoded key (see rc4_key[] above) encodes the
+	 * v1 header block for legacy Rockchip BootROM backward compatibility.
+	 * This is BootROM-mandated obfuscation, not a security mechanism.
+	 * v2 headers (rk3568+) use SHA256 instead. This code path is only
+	 * reached when processing legacy Rockchip v1 image types.
+	 */
 	rc4_encode(buf, RK_BLK_SIZE, rc4_key);
 }
 

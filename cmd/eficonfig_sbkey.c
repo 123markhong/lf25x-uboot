@@ -148,6 +148,7 @@ static efi_status_t eficonfig_process_enroll_key(void *data)
 
 	size = ((struct efi_file_info *)buf)->file_size;
 	free(buf);
+	buf = NULL;
 
 	if (!size) {
 		eficonfig_print_msg("ERROR! File is empty.");
