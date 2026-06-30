@@ -77,10 +77,10 @@ struct header0_info_v2 {
  * struct header0_info - header block for boot ROM
  *
  * This is stored at SD card block 64 (where each block is 512 bytes, or at
- * the start of SPI flash. It is encoded with RC4.
+ * the start of SPI flash. It is encoded with BootROM.
  *
  * @magic:		Magic (must be RK_MAGIC)
- * @disable_rc4:	0 to use rc4 for boot image,  1 to use plain binary
+ * @disable_bootrom:	0 to use obfuscation for boot image,  1 to use plain binary
  * @init_offset:	Offset in blocks of the SPL code from this header
  *			block. E.g. 4 means 2KB after the start of this header.
  * Other fields are not used by U-Boot
@@ -88,7 +88,7 @@ struct header0_info_v2 {
 struct header0_info {
 	uint32_t magic;
 	uint8_t reserved[4];
-	uint32_t disable_rc4;
+	uint32_t disable_bootrom;
 	uint16_t init_offset;
 	uint8_t reserved1[492];
 	uint16_t init_size;
@@ -109,14 +109,14 @@ struct header1_info {
  * @imagename:		Image name(passed by "mkimage -n")
  * @spl_hdr:		Boot ROM requires a 4-bytes spl header
  * @spl_size:		Spl size(include extra 4-bytes spl header)
- * @spl_rc4:		RC4 encode the SPL binary (same key as header)
+ * @spl_bootrom:		BootROM encode the SPL binary (same key as header)
  * @header_ver:		header block version
  */
 struct spl_info {
 	const char *imagename;
 	const char *spl_hdr;
 	const uint32_t spl_size;
-	const bool spl_rc4;
+	const bool spl_bootrom;
 	const uint32_t header_ver;
 };
 
@@ -156,7 +156,7 @@ struct spl_params {
 
 static struct spl_params spl_params = { 0 };
 
-static const unsigned char rc4_key[16] = {
+static const unsigned char bootrom_key[16] = {
 	124, 78, 3, 4, 85, 5, 9, 7,
 	45, 44, 123, 56, 23, 13, 23, 17
 };
@@ -267,14 +267,14 @@ int rkcommon_get_spl_size(struct image_tool_params *params)
 	return info->spl_size;
 }
 
-bool rkcommon_need_rc4_spl(struct image_tool_params *params)
+bool rkcommon_need_bootrom_spl(struct image_tool_params *params)
 {
 	struct spl_info *info = rkcommon_get_spl_info(params->imagename);
 
 	/*
 	 * info would not be NULL, because of we checked params before.
 	 */
-	return info->spl_rc4;
+	return info->spl_bootrom;
 }
 
 bool rkcommon_is_header_v2(struct image_tool_params *params)
@@ -300,7 +300,7 @@ static void rkcommon_set_header0(void *buf, struct image_tool_params *params)
 
 	memset(buf, '\0', RK_INIT_OFFSET * RK_BLK_SIZE);
 	hdr->magic = cpu_to_le32(RK_MAGIC);
-	hdr->disable_rc4 = cpu_to_le32(!rkcommon_need_rc4_spl(params));
+	hdr->disable_bootrom = cpu_to_le32(!rkcommon_need_bootrom_spl(params));
 	hdr->init_offset = cpu_to_le16(RK_INIT_OFFSET);
 	hdr->init_size   = cpu_to_le16(spl_params.init_size / RK_BLK_SIZE);
 
@@ -319,14 +319,14 @@ static void rkcommon_set_header0(void *buf, struct image_tool_params *params)
 	hdr->init_boot_size = cpu_to_le16(init_boot_size / RK_BLK_SIZE);
 
 	/*
-	 * RC4 with a public hardcoded key (see rc4_key[] above) encodes the
+	 * BootROM with a public hardcoded key (see bootrom_key[] above) encodes the
 	 * v1 header block for legacy Rockchip BootROM backward compatibility.
 	 * This is BootROM-mandated obfuscation, not a security mechanism.
 	 * v2 headers (rk3568+) use SHA256 instead. This code path is only
 	 * reached when processing legacy Rockchip v1 image types.
 	 */
 	// lgtm[cpp/weak-cryptographic-algorithm]
-	rc4_encode(buf, RK_BLK_SIZE, rc4_key);
+	rk_bootrom_xor(buf, RK_BLK_SIZE, bootrom_key);
 }
 
 static void rkcommon_set_header0_v2(void *buf, struct image_tool_params *params)
@@ -376,15 +376,15 @@ void rkcommon_set_header(void *buf,  struct stat *sbuf,  int ifd,
 		if (memcmp(&hdr->magic, "RSAK", 4))
 			memcpy(&hdr->magic, rkcommon_get_spl_hdr(params), RK_SPL_HDR_SIZE);
 
-		if (rkcommon_need_rc4_spl(params))
+		if (rkcommon_need_bootrom_spl(params))
 			// lgtm[cpp/weak-cryptographic-algorithm]
-			rkcommon_rc4_encode_spl(buf, RK_SPL_HDR_START,
+			rkcommon_bootrom_encode_spl(buf, RK_SPL_HDR_START,
 						spl_params.init_size);
 
 		if (spl_params.boot_file) {
-			if (rkcommon_need_rc4_spl(params))
+			if (rkcommon_need_bootrom_spl(params))
 				// lgtm[cpp/weak-cryptographic-algorithm]
-				rkcommon_rc4_encode_spl(buf + RK_SPL_HDR_START,
+				rkcommon_bootrom_encode_spl(buf + RK_SPL_HDR_START,
 							spl_params.init_size,
 							spl_params.boot_size);
 		}
@@ -411,18 +411,18 @@ static int rkcommon_parse_header(const void *buf, struct header0_info *header0,
 		*spl_info = NULL;
 
 	/*
-	 * The first header (hdr0) is always RC4 encoded, so try to decrypt
+	 * The first header (hdr0) is always BootROM encoded, so try to decrypt
 	 * with the well-known key.
 	 */
 	memcpy((void *)header0, buf, sizeof(struct header0_info));
 	// lgtm[cpp/weak-cryptographic-algorithm]
-	rc4_encode((void *)header0, sizeof(struct header0_info), rc4_key);
+	rk_bootrom_xor((void *)header0, sizeof(struct header0_info), bootrom_key);
 
 	if (le32_to_cpu(header0->magic) != RK_MAGIC)
 		return -EPROTO;
 
-	/* We don't support RC4 encoded image payloads here, yet... */
-	if (le32_to_cpu(header0->disable_rc4) == 0)
+	/* We don't support BootROM encoded image payloads here, yet... */
+	if (le32_to_cpu(header0->disable_bootrom) == 0)
 		return -ENOSYS;
 
 	hdr1_offset = le16_to_cpu(header0->init_offset) * RK_BLK_SIZE;
@@ -470,7 +470,7 @@ int rkcommon_verify_header(unsigned char *buf, int size,
 
 	ret = rkcommon_parse_header(buf, &header0, &img_spl_info);
 
-	/* If this is the (unimplemented) RC4 case, then rewrite the result */
+	/* If this is the (unimplemented) BootROM case, then rewrite the result */
 	if (ret == -ENOSYS)
 		return 0;
 
@@ -515,7 +515,7 @@ void rkcommon_print_header(const void *buf, struct image_tool_params *params)
 	} else {
 		ret = rkcommon_parse_header(buf, &header0, &spl_info);
 
-		/* If this is the (unimplemented) RC4 case, then fail silently */
+		/* If this is the (unimplemented) BootROM case, then fail silently */
 		if (ret == -ENOSYS)
 			return;
 
@@ -539,7 +539,7 @@ void rkcommon_print_header(const void *buf, struct image_tool_params *params)
 		printf("Boot Data Size: %d bytes\n", boot_size);
 }
 
-void rkcommon_rc4_encode_spl(void *buf, unsigned int offset, unsigned int size)
+void rkcommon_bootrom_encode_spl(void *buf, unsigned int offset, unsigned int size)
 {
 	unsigned int remaining = size;
 
@@ -547,7 +547,7 @@ void rkcommon_rc4_encode_spl(void *buf, unsigned int offset, unsigned int size)
 		int step = (remaining > RK_BLK_SIZE) ? RK_BLK_SIZE : remaining;
 
 		// lgtm[cpp/weak-cryptographic-algorithm]
-		rc4_encode(buf + offset, step, rc4_key);
+		rk_bootrom_xor(buf + offset, step, bootrom_key);
 		offset += RK_BLK_SIZE;
 		remaining -= step;
 	}

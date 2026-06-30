@@ -71,26 +71,26 @@ int rkcommon_verify_header(unsigned char *buf, int size,
 void rkcommon_print_header(const void *buf, struct image_tool_params *params);
 
 /**
- * rkcommon_need_rc4_spl() - check if rc4 encoded spl is required
+ * rkcommon_need_bootrom_spl() - check if bootrom encoded spl is required
  *
- * Some socs cannot disable the rc4-encryption of the spl binary.
- * rc4 encryption is disabled normally except on socs that cannot
+ * Some socs cannot disable the bootrom-encryption of the spl binary.
+ * bootrom encryption is disabled normally except on socs that cannot
  * handle unencrypted binaries.
- * Return: true or false depending on rc4 being required.
+ * Return: true or false depending on bootrom being required.
  */
-bool rkcommon_need_rc4_spl(struct image_tool_params *params);
+bool rkcommon_need_bootrom_spl(struct image_tool_params *params);
 
 /**
- * rkcommon_rc4_encode_spl() - encode the spl binary
+ * rkcommon_bootrom_encode_spl() - encode the spl binary
  *
- * Encrypts the SPL binary using the generic rc4 key as required
+ * Encrypts the SPL binary using the generic bootrom key as required
  * by some socs.
  *
  * @buf:	Pointer to the SPL data (header and SPL binary)
  * @offset:	offset inside buf to start at
  * @size:	number of bytes to encode
  */
-void rkcommon_rc4_encode_spl(void *buf, unsigned int offset, unsigned int size);
+void rkcommon_bootrom_encode_spl(void *buf, unsigned int offset, unsigned int size);
 
 /**
  * rkcommon_vrec_header() - allocate memory for the header

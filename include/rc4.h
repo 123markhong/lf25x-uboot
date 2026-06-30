@@ -9,12 +9,12 @@
 #define __RC4_H
 
 /**
- * rc4_encode() - encode a buf with the RC4 cipher
+ * rk_bootrom_xor() - encode a buf with the BootROM XOR obfuscation
  *
  * @buf:	Buffer to encode (it is overwrite in the process
  * @len:	Length of buffer in bytes
  * @key:	16-byte key to use
  */
-void rc4_encode(unsigned char *buf, unsigned int len, const unsigned char key[16]);
+void rk_bootrom_xor(unsigned char *buf, unsigned int len, const unsigned char key[16]);
 
 #endif

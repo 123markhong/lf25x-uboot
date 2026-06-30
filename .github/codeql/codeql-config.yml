@@ -1,0 +1,17 @@
+---
+# CodeQL configuration for U-Boot Rockchip tools.
+#
+# RC4 in these files is BootROM-mandated obfuscation with a public
+# hardcoded key -- not a security mechanism.  It cannot be replaced
+# without breaking boot on legacy Rockchip SoCs (rk3066, rk3188).
+# v2 headers (rk3568+) use SHA256 instead.
+name: "U-Boot Rockchip RC4 suppression"
+disable-default-queries: false
+
+query-filters:
+  - exclude:
+      id: cpp/weak-cryptographic-algorithm
+    paths:
+      - lib/rc4.c
+      - tools/rkcommon.c
+      - tools/rkimage.c

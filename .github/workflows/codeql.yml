@@ -1,0 +1,46 @@
+---
+# CodeQL advanced setup -- required so that the custom configuration
+# file at .github/codeql/codeql-config.yml is actually loaded.  The
+# default CodeQL setup does NOT use custom config files.
+name: "CodeQL"
+
+on:
+  push:
+    branches: ["develop-ld25x-v2023.10", "master", "main"]
+  pull_request:
+    branches: ["develop-ld25x-v2023.10", "master", "main"]
+  schedule:
+    - cron: '37 2 * * 0'
+
+jobs:
+  analyze:
+    name: Analyze (cpp)
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['cpp']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yml
+
+      - name: Build U-Boot host tools
+        run: |
+          make tools-only_defconfig
+          make tools-only
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
